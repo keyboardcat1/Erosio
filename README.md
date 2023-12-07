@@ -36,7 +36,7 @@ Eroder.Results results = Eroder.erode(settings, voronoiDelaunay);
 // Interpolate height at a point (2.0, 3.0)
 double heightNN = results.interpolateNearestNeighbor(2.0, 3.0);
 //or
-double heightIDW = results.interpolateInverseDistanceWeighted(2.0, 3.0);
+double heightIDW = results.interpolateInverseDistanceWeighted(2.0, 3.0, /*alpha*/ 2);
 ```
 
 <p align="center">
