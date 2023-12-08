@@ -197,7 +197,7 @@ public class Eroder {
         double m = settings.mnRatio;
         double k = settings.erosionRate;
         double dt = settings.timeStep;
-        double maxSlope = Math.tan(Math.toDegrees(settings.maxSlopeDegreesLambda.apply(current, oldHeight)));
+        double maxSlope = Math.tan(Math.toRadians(settings.maxSlopeDegreesLambda.apply(current, oldHeight)));
 
         double erosionImportance = k * Math.pow(drainageArea, m) / distance;
         double newHeight = (oldHeight + dt * (uplift + erosionImportance * downstreamHeight)) / (1 + erosionImportance * dt);
