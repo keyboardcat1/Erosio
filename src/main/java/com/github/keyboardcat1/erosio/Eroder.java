@@ -7,6 +7,7 @@ import org.kynosarges.tektosyne.subdivision.Subdivision;
 import org.kynosarges.tektosyne.subdivision.SubdivisionEdge;
 
 import java.util.*;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -33,8 +34,8 @@ public class Eroder {
         Map<PointD, Double> areaMap = new HashMap<>(baseGraph.size());
         for (int i = 0; i < baseGraph.size(); i++) {
             PointD p = voronoiDelaunay.voronoiResults.generatorSites[i];
-            heightMap.put(p, settings.initialHeightLambda().apply(p));
-            upliftMap.put(p, settings.upliftLambda().apply(p));
+            heightMap.put(p, settings.initialHeightLambda.apply(p));
+            upliftMap.put(p, settings.upliftLambda.apply(p));
             areaMap.put(p, Math.abs(GeoUtils.polygonArea(voronoiDelaunay.voronoiResults.voronoiRegions()[i])));
         }
 
@@ -48,7 +49,7 @@ public class Eroder {
         boolean converged = false;
         StreamGraph streamGraph = null;
         Map<PointD, java.lang.Double> drainageMap = null;
-        for (int i = 0; i < settings.maxIterations() && !converged; i++) {
+        for (int i = 0; i < settings.maxIterations && !converged; i++) {
             streamGraph = buildInitialStreamGraph(baseGraph, heightMap);
             Set<PointD> drains = new HashSet<>(streamGraph.roots);
             drains.retainAll(potentialDrains);
@@ -57,7 +58,7 @@ public class Eroder {
             Map<PointD, Double> newHeightMap = computeNewHeightMap(heightMap, upliftMap, drainageMap, streamGraph, settings, voronoiDelaunay.inverseSampleDensity);
             converged = true;
             for (PointD point : newHeightMap.keySet())
-                if (Math.abs(newHeightMap.get(point) - heightMap.get(point)) > settings.convergenceThreshold())
+                if (Math.abs(newHeightMap.get(point) - heightMap.get(point)) > settings.convergenceThreshold)
                     converged = false;
             heightMap = newHeightMap;
         }
@@ -193,10 +194,10 @@ public class Eroder {
         double oldHeight = oldHeightMap.get(current);
         double uplift = upliftMap.get(current);
         double drainageArea = drainageMap.get(current);
-        double m = settings.mnRatio();
-        double k = settings.erosionCoefficientLambda().apply(current);
-        double dt = settings.timeStep();
-        double maxSlope = Math.tan(Math.toDegrees(settings.maxSlopeDegrees()));
+        double m = settings.mnRatio;
+        double k = settings.erosionRate;
+        double dt = settings.timeStep;
+        double maxSlope = Math.tan(Math.toDegrees(settings.maxSlopeDegreesLambda.apply(current, oldHeight)));
 
         double erosionImportance = k * Math.pow(drainageArea, m) / distance;
         double newHeight = (oldHeight + dt * (uplift + erosionImportance * downstreamHeight)) / (1 + erosionImportance * dt);
@@ -212,17 +213,18 @@ public class Eroder {
     /**
      * The input settings for {@link Eroder}
      *
-     * @param upliftLambda             A function taking in a {@link PointD} and returning the uplift at that point
-     * @param initialHeightLambda      A function taking in a {@link PointD} and returning the initial height at that point
-     * @param erosionCoefficientLambda A function taking in a {@link PointD} and returning a coefficient controlling how deep water cuts
+     * @param upliftLambda             A surface function taking in a {@link PointD} and returning the uplift at that 2D point
+     * @param initialHeightLambda      A surface function taking in a {@link PointD} and returning the initial height at that 2D point
+     * @param erosionRate              A coefficient controlling how much water cuts in an erosion cycle
      * @param mnRatio                  A value between 0 and 1 controlling the nature of the erosion (see stream power equation)
-     * @param maxSlopeDegrees          The maximum slope due to thermal erosion in degrees
-     * @param timeStep                 The simulated time taken between each height update
-     * @param maxIterations            The maximum number of height updates
-     * @param convergenceThreshold     The maximum height difference between two updates dictating when they should cease
+     * @param maxSlopeDegreesLambda    A volume function taking in a {@link PointD} and a height and returning the maximum slope due to thermal erosion in degrees at that 3D point
+     * @param timeStep                 The simulated time taken between erosion cycles
+     * @param maxIterations            The maximum number of erosion cycles
+     * @param convergenceThreshold     The maximum height difference between two erosion cycles dictating when they should cease
      */
     public record Settings(Function<PointD, Double> upliftLambda, Function<PointD, Double> initialHeightLambda,
-                           Function<PointD, Double> erosionCoefficientLambda, double mnRatio, double maxSlopeDegrees,
+                           double erosionRate, double mnRatio,
+                           BiFunction<PointD, Double, Double> maxSlopeDegreesLambda,
                            double timeStep, int maxIterations, double convergenceThreshold) {
     }
 
@@ -265,10 +267,11 @@ public class Eroder {
          * @param x     The X coordinate of the point
          * @param y     The Y coordinate of that point
          * @param alpha The IDW inverse exponent parameter
+         * @param steps The graph traversal search depth
          * @return The interpolated height at the point
          */
-        public double interpolateInverseDistanceWeighted(double x, double y, double alpha) {
-            return interpolateInverseDistanceWeighted(new PointD(x, y), alpha);
+        public double interpolateInverseDistanceWeighting(double x, double y, double alpha, int steps) {
+            return interpolateInverseDistanceWeighting(new PointD(x, y), alpha, steps);
         }
 
         /**
@@ -276,14 +279,15 @@ public class Eroder {
          *
          * @param point The point to interpolate at
          * @param alpha The IDW inverse exponent parameter
+         * @param steps The graph traversal search depth
          * @return The interpolated height at the point
          */
-        public double interpolateInverseDistanceWeighted(PointD point, double alpha) {
+        public double interpolateInverseDistanceWeighting(PointD point, double alpha, int steps) {
             double numerator = 0;
             double denominator = 0;
-            for (PointD vertex : voronoiDelaunay.delaunaySubdivision.getNeighbors(voronoiDelaunay.delaunaySubdivision.findNearestNode(point))) {
-                numerator += heightMap.get(vertex) * Math.pow(point.subtract(vertex).length(), alpha);
-                denominator += Math.pow(point.subtract(vertex).length(), alpha);
+            for (PointD vertex : voronoiDelaunay.delaunaySubdivision.getNeighbors(voronoiDelaunay.delaunaySubdivision.findNearestNode(point), steps)) {
+                numerator += heightMap.get(vertex) / Math.pow(point.subtract(vertex).length(), alpha);
+                denominator += 1 / Math.pow(point.subtract(vertex).length(), alpha);
             }
             return numerator / denominator;
         }
