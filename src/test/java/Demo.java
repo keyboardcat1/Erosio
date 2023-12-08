@@ -14,7 +14,7 @@ public class Demo {
         Eroder.Settings settings = new Eroder.Settings(
                 p -> 1.0, p -> 0.0,
                 2.0, 0.5,
-                (p,h) -> 10.0,
+                (p,h) -> 30.0,
                 1, 10, 1E-2
         );
         VoronoiDelaunay voronoiDelaunay = new VoronoiDelaunay(bounds.toRectD(), 2, 2);
