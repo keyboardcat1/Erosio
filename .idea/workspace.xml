@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="77f92e6d-4ecb-422a-b86f-6c78dec6ec47" name="Changes" comment="Updated workflow">
+    <list default="true" id="77f92e6d-4ecb-422a-b86f-6c78dec6ec47" name="Changes" comment="Added polygonal bounds&#10;&#10;Converted Eroder.Results to a non-final class&#10;Added minHeight and maxHeight to Eroder.Results&#10;Made StreamGraph public">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/Eroder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/Eroder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/StreamGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/StreamGraph.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/VoronoiDelaunay.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/VoronoiDelaunay.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/Demo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Demo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,12 +47,12 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "keyboardcat1"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;keyboardcat1&quot;
   }
-}]]></component>
+}</component>
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
@@ -81,18 +77,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "onboarding.tips.debug.path": "/home/keyboardcat/Documents/rivers2/src/main/java/org/example/Main.java",
-    "project.structure.last.edited": "SDKs",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.lookFeel"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;/home/keyboardcat/Documents/rivers2/src/main/java/org/example/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/images" />
@@ -273,7 +269,23 @@
       <option name="project" value="LOCAL" />
       <updated>1702063822722</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Updated build.gradle.kts to version 1.1">
+      <option name="closed" value="true" />
+      <created>1702119125913</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1702119125913</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Added polygonal bounds&#10;&#10;Converted Eroder.Results to a non-final class&#10;Added minHeight and maxHeight to Eroder.Results&#10;Made StreamGraph public">
+      <option name="closed" value="true" />
+      <created>1702119244901</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1702119244901</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -295,7 +307,9 @@
     <MESSAGE value="Configured gradle publish" />
     <MESSAGE value="Updated Java version to 17 in build.gradle" />
     <MESSAGE value="Updated workflow" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated workflow" />
+    <MESSAGE value="Updated build.gradle.kts to version 1.1" />
+    <MESSAGE value="Added polygonal bounds&#10;&#10;Converted Eroder.Results to a non-final class&#10;Added minHeight and maxHeight to Eroder.Results&#10;Made StreamGraph public" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added polygonal bounds&#10;&#10;Converted Eroder.Results to a non-final class&#10;Added minHeight and maxHeight to Eroder.Results&#10;Made StreamGraph public" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
