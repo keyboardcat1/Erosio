@@ -10,13 +10,13 @@ import java.util.Set;
 /**
  * A directed graph linking each node to its upstream neighbors
  */
-class StreamGraph extends Graph {
+public class StreamGraph extends Graph {
     /**
      * The roots of this stream graph
      */
-    final Set<PointD> roots = new HashSet<>();
+    public final Set<PointD> roots = new HashSet<>();
     /**
      * A mapping from each node to it's downstream neighbor
      */
-    final Map<PointD, PointD> downstreamMap = new HashMap<>();
+    public final Map<PointD, PointD> downstreamMap = new HashMap<>();
 }

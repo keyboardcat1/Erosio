@@ -230,15 +230,47 @@ public class Eroder {
 
     /**
      * The output of {@link Eroder}
-     *
-     * @param heightMap       A mapping from each stream node to its height
-     * @param streamGraph     The {@link StreamGraph} used in the last erosion iteration
-     * @param drainageMap     A mapping from each stream node to the volume of water that passes by it
-     * @param voronoiDelaunay The eroded Voronoi tessellated and Delaunay triangulated area
      */
-    public record Results(Map<PointD, Double> heightMap, StreamGraph streamGraph, Map<PointD, Double> drainageMap,
-                          VoronoiDelaunay voronoiDelaunay) {
+    public static class Results {
+        /**
+         * The mapping from each stream node to its height
+         */
+        public final Map<PointD, Double> heightMap;
+        /**
+         * The {@link StreamGraph} used in the last erosion iteration
+         */
+        public final StreamGraph streamGraph;
+        /**
+         * A mapping from each stream node to the volume of water that passes by it
+         */
+        public final Map<PointD, Double> drainageMap;
+        /**
+         * The eroded Voronoi tessellated and Delaunay triangulated area
+         */
+        public final VoronoiDelaunay voronoiDelaunay;
 
+        /**
+         * The maximum height in the heightmap
+         */
+        public final double maxHeight;
+        /**
+         * The minimum height in the heightmap
+         */
+        public final double minHeight;
+
+        Results(Map<PointD, Double> heightMap, StreamGraph streamGraph, Map<PointD, Double> drainageMap,
+                VoronoiDelaunay voronoiDelaunay) {
+            this.heightMap = heightMap;
+            this.streamGraph = streamGraph;
+            this.drainageMap = drainageMap;
+            this.voronoiDelaunay = voronoiDelaunay;
+
+            Optional<Double> max = heightMap.values().stream().max(Double::compareTo);
+            assert max.isPresent();
+            this.maxHeight = max.get();
+            Optional<Double> min = heightMap.values().stream().min(Double::compareTo);
+            this.minHeight = min.get();
+        }
 
         /**
          * Interpolates the height of a point by nearest neighbor
@@ -290,6 +322,32 @@ public class Eroder {
                 denominator += 1 / Math.pow(point.subtract(vertex).length(), alpha);
             }
             return numerator / denominator;
+        }
+
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == this) return true;
+            if (obj == null || obj.getClass() != this.getClass()) return false;
+            var that = (Results) obj;
+            return Objects.equals(this.heightMap, that.heightMap) &&
+                    Objects.equals(this.streamGraph, that.streamGraph) &&
+                    Objects.equals(this.drainageMap, that.drainageMap) &&
+                    Objects.equals(this.voronoiDelaunay, that.voronoiDelaunay);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(heightMap, streamGraph, drainageMap, voronoiDelaunay);
+        }
+
+        @Override
+        public String toString() {
+            return "Results[" +
+                    "heightMap=" + heightMap + ", " +
+                    "streamGraph=" + streamGraph + ", " +
+                    "drainageMap=" + drainageMap + ", " +
+                    "voronoiDelaunay=" + voronoiDelaunay + ']';
         }
     }
 }

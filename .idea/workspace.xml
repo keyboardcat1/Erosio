@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="77f92e6d-4ecb-422a-b86f-6c78dec6ec47" name="Changes" comment="Configured gradle publish" />
+    <list default="true" id="77f92e6d-4ecb-422a-b86f-6c78dec6ec47" name="Changes" comment="Updated workflow">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/Eroder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/Eroder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/StreamGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/StreamGraph.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/VoronoiDelaunay.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/VoronoiDelaunay.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/Demo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Demo.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -59,6 +66,7 @@
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.kynosarges/tektosyne/6.2.0/4c513e669ae179106ceeac13bf7d95c562964084/tektosyne-6.2.0-sources.jar!/org/kynosarges/tektosyne/geometry/RectD.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.kynosarges/tektosyne/6.2.0/4c513e669ae179106ceeac13bf7d95c562964084/tektosyne-6.2.0-sources.jar!/org/kynosarges/tektosyne/geometry/VoronoiResults.java" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -94,23 +102,10 @@
       <recent name="org.example" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.rivers2 [publish]">
+  <component name="RunManager" selected="Gradle.rivers2 [javadocJar]">
     <configuration name="Demo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Demo" />
       <module name="erosio.test" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.example.Main" />
-      <module name="rivers2.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.example.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -159,6 +154,28 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
+    <configuration name="rivers2 [javadocJar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="javadocJar" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
     <configuration name="rivers2 [publish]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -183,11 +200,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.rivers2 [javadocJar]" />
+        <item itemvalue="Gradle.rivers2 [build]" />
         <item itemvalue="Gradle.rivers2 [publish]" />
         <item itemvalue="Gradle.rivers2 [compileJava]" />
-        <item itemvalue="Gradle.rivers2 [build]" />
         <item itemvalue="Application.Demo" />
-        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -240,7 +257,23 @@
       <option name="project" value="LOCAL" />
       <updated>1702058038176</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Updated Java version to 17 in build.gradle">
+      <option name="closed" value="true" />
+      <created>1702060007241</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1702060007241</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Updated workflow">
+      <option name="closed" value="true" />
+      <created>1702063822722</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1702063822722</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -260,7 +293,9 @@
     <MESSAGE value="Max slope degrees to radians" />
     <MESSAGE value="Updated Demo and IDW.png" />
     <MESSAGE value="Configured gradle publish" />
-    <option name="LAST_COMMIT_MESSAGE" value="Configured gradle publish" />
+    <MESSAGE value="Updated Java version to 17 in build.gradle" />
+    <MESSAGE value="Updated workflow" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated workflow" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
