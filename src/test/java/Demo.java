@@ -23,7 +23,7 @@ public class Demo {
 
         BufferedImage image = new BufferedImage((int) bounds.width(), (int) bounds.height(), BufferedImage.TYPE_INT_RGB);
         for (int x = bounds.min.x; x < bounds.max.x; x++) for (int y = bounds.min.y; y < bounds.max.y; y++) {
-            double value = results.interpolateInverseDistanceWeighting(x, y, 2, 1);
+            double value = results.interpolateInverseDistanceWeighting(x, y, 2, 5);
             int intensity = (int) (255 * value / results.maxHeight);
             image.setRGB(x - bounds.min.x, y - bounds.min.y, new Color(intensity, intensity, intensity).getRGB());
         }
