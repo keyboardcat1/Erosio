@@ -314,18 +314,22 @@ public class Eroder {
          * @return The interpolated height at the point
          */
         public double interpolateInverseDistanceWeighting(PointD point, double exponent, double radius) {
-            double numerator = 0;
-            double denominator = 0;
-            final Subdivision delaunay = voronoiDelaunay.delaunaySubdivision;
+            double numerator = 0.0D;
+            double denominator = 0.0D;
+            Subdivision delaunay = voronoiDelaunay.delaunaySubdivision;
             PointD delta = new PointD(radius, radius);
-            Set<PointD> neighbors = ((PointDComparatorY) delaunay.vertices().comparator())
-                    .findRange(delaunay.vertices(), new RectD(point.subtract(delta), point.add(delta)) )
-                    .keySet()
-                    .stream().filter(p -> p.subtract(point).length() <= radius)
-                    .collect(Collectors.toSet());
-            for (PointD node : neighbors) {
-                numerator += heightMap.get(node) / Math.pow(point.subtract(node).length(), exponent);
-                denominator += 1 / Math.pow(point.subtract(node).length(), exponent);
+            for (
+                    PointD node
+                    :
+                    ((PointDComparatorY)(delaunay.vertices().comparator()))
+                            .findRange(delaunay.vertices(), new RectD(point.subtract(delta), point.add(delta)))
+                            .keySet()
+            ) {
+                if (node.subtract(point).lengthSquared() <= radius * radius) {
+                    double toAdd = Math.pow(point.subtract(node).lengthSquared(), exponent * -0.5D);
+                    numerator += heightMap.get(node) * toAdd;
+                    denominator += toAdd;
+                }
             }
             return numerator / denominator;
         }
