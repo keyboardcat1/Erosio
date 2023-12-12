@@ -1,8 +1,6 @@
 package com.github.keyboardcat1.erosio;
 
-import org.kynosarges.tektosyne.geometry.GeoUtils;
-import org.kynosarges.tektosyne.geometry.PointD;
-import org.kynosarges.tektosyne.geometry.PolygonLocation;
+import org.kynosarges.tektosyne.geometry.*;
 import org.kynosarges.tektosyne.subdivision.Subdivision;
 import org.kynosarges.tektosyne.subdivision.SubdivisionEdge;
 
@@ -245,11 +243,6 @@ public class Eroder {
          */
         public final Map<PointD, Double> drainageMap;
         /**
-         * The eroded Voronoi tessellated and Delaunay triangulated area
-         */
-        public final VoronoiDelaunay voronoiDelaunay;
-
-        /**
          * The maximum height in the heightmap
          */
         public final double maxHeight;
@@ -258,11 +251,17 @@ public class Eroder {
          */
         public final double minHeight;
 
+        /**
+         * The {@link VoronoiDelaunay} passed as input
+         */
+        protected final VoronoiDelaunay voronoiDelaunay;
+
         Results(Map<PointD, Double> heightMap, StreamGraph streamGraph, Map<PointD, Double> drainageMap,
                 VoronoiDelaunay voronoiDelaunay) {
             this.heightMap = heightMap;
             this.streamGraph = streamGraph;
             this.drainageMap = drainageMap;
+
             this.voronoiDelaunay = voronoiDelaunay;
 
             Optional<Double> max = heightMap.values().stream().max(Double::compareTo);
@@ -298,28 +297,35 @@ public class Eroder {
          *
          * @param x     The X coordinate of the point
          * @param y     The Y coordinate of that point
-         * @param alpha The IDW inverse exponent parameter
-         * @param steps The graph traversal search depth
+         * @param exponent The IDW inverse exponent parameter
+         * @param radius The radius of the IDW sample disk
          * @return The interpolated height at the point
          */
-        public double interpolateInverseDistanceWeighting(double x, double y, double alpha, int steps) {
-            return interpolateInverseDistanceWeighting(new PointD(x, y), alpha, steps);
+        public double interpolateInverseDistanceWeighting(double x, double y, double exponent, int radius) {
+            return interpolateInverseDistanceWeighting(new PointD(x, y), exponent, radius);
         }
 
         /**
          * Interpolated the height of a point with Inverse Distance Weighted
          *
          * @param point The point to interpolate at
-         * @param alpha The IDW inverse exponent parameter
-         * @param steps The graph traversal search depth
+         * @param exponent The IDW inverse exponent parameter
+         * @param radius The radius of the IDW sample disk
          * @return The interpolated height at the point
          */
-        public double interpolateInverseDistanceWeighting(PointD point, double alpha, int steps) {
+        public double interpolateInverseDistanceWeighting(PointD point, double exponent, double radius) {
             double numerator = 0;
             double denominator = 0;
-            for (PointD vertex : voronoiDelaunay.delaunaySubdivision.getNeighbors(voronoiDelaunay.delaunaySubdivision.findNearestNode(point), steps)) {
-                numerator += heightMap.get(vertex) / Math.pow(point.subtract(vertex).length(), alpha);
-                denominator += 1 / Math.pow(point.subtract(vertex).length(), alpha);
+            final Subdivision delaunay = voronoiDelaunay.delaunaySubdivision;
+            PointD delta = new PointD(radius, radius);
+            Set<PointD> neighbors = ((PointDComparatorY) delaunay.vertices().comparator())
+                    .findRange(delaunay.vertices(), new RectD(point.subtract(delta), point.add(delta)) )
+                    .keySet()
+                    .stream().filter(p -> p.subtract(point).length() <= radius)
+                    .collect(Collectors.toSet());
+            for (PointD node : neighbors) {
+                numerator += heightMap.get(node) / Math.pow(point.subtract(node).length(), exponent);
+                denominator += 1 / Math.pow(point.subtract(node).length(), exponent);
             }
             return numerator / denominator;
         }
