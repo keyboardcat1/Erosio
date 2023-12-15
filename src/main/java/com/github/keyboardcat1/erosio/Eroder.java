@@ -1,10 +1,11 @@
 package com.github.keyboardcat1.erosio;
 
-import org.kynosarges.tektosyne.geometry.GeoUtils;
-import org.kynosarges.tektosyne.geometry.PointD;
-import org.kynosarges.tektosyne.geometry.PolygonLocation;
+import org.kynosarges.tektosyne.geometry.*;
+import org.kynosarges.tektosyne.subdivision.Subdivision;
+import org.kynosarges.tektosyne.subdivision.SubdivisionEdge;
 
 import java.util.*;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -20,53 +21,73 @@ public class Eroder {
      * Computes an eroded heightmap
      *
      * @param settings        The parameters of the erosion algorithm
-     * @param eroderGeometry The Voronoi tessellated and Delaunay triangulated area to erode
+     * @param voronoiDelaunay The Voronoi tessellated and Delaunay triangulated area to erode
      * @return An eroded heightmap along with computational details
      */
-    public static EroderResults erode(EroderSettings settings, EroderGeometry eroderGeometry) {
-        Map<PointD, Double> heightMap = new HashMap<>(eroderGeometry.graph.size());
-        Map<PointD, Double> upliftMap = new HashMap<>(eroderGeometry.graph.size());
-        for (PointD point : eroderGeometry.graph.keySet()) {
-            heightMap.put(point, settings.initialHeightLambda().apply(point));
-            upliftMap.put(point, settings.upliftLambda().apply(point));
+    public static Results erode(Settings settings, VoronoiDelaunay voronoiDelaunay) {
+        Graph baseGraph = buildBaseGraph(voronoiDelaunay.delaunaySubdivision);
+
+        Map<PointD, Double> heightMap = new HashMap<>(baseGraph.size());
+        Map<PointD, Double> upliftMap = new HashMap<>(baseGraph.size());
+        Map<PointD, Double> areaMap = new HashMap<>(baseGraph.size());
+        for (int i = 0; i < baseGraph.size(); i++) {
+            PointD p = voronoiDelaunay.voronoiResults.generatorSites[i];
+            heightMap.put(p, settings.initialHeightLambda.apply(p));
+            upliftMap.put(p, settings.upliftLambda.apply(p));
+            areaMap.put(p, Math.abs(GeoUtils.polygonArea(voronoiDelaunay.voronoiResults.voronoiRegions()[i])));
         }
 
-        PointD[] convexHull = GeoUtils.convexHull(eroderGeometry.graph.keySet().toArray(new PointD[0]));
-        Set<PointD> potentialDrains = eroderGeometry.graph.keySet().stream()
+
+        PointD[] convexHull = GeoUtils.convexHull(voronoiDelaunay.delaunaySubdivision.vertices().keySet().toArray(new PointD[0]));
+        Set<PointD> potentialDrains = voronoiDelaunay.delaunaySubdivision.nodes().stream()
                 .filter(node -> GeoUtils.pointInPolygon(node, convexHull) == PolygonLocation.VERTEX)
                 .collect(Collectors.toSet());
+
+
         boolean converged = false;
         StreamGraph streamGraph = null;
         Map<PointD, java.lang.Double> drainageMap = null;
-        for (int i = 0; i < settings.maxIterations() && !converged; i++) {
-            streamGraph = buildInitialStreamGraph(eroderGeometry.graph, heightMap);
+        for (int i = 0; i < settings.maxIterations && !converged; i++) {
+            streamGraph = buildInitialStreamGraph(baseGraph, heightMap);
             Set<PointD> drains = new HashSet<>(streamGraph.roots);
             drains.retainAll(potentialDrains);
-            delakefyStreamGraph(streamGraph, eroderGeometry.graph, heightMap, drains);
-            drainageMap = getDrainageMap(streamGraph, eroderGeometry.areaMap);
-            Map<PointD, Double> newHeightMap = computeNewHeightMap(heightMap, upliftMap, drainageMap, streamGraph, settings, eroderGeometry.minDistance);
+            delakefyStreamGraph(streamGraph, voronoiDelaunay.delaunaySubdivision, heightMap, drains);
+            drainageMap = getDrainageMap(streamGraph, areaMap);
+            Map<PointD, Double> newHeightMap = computeNewHeightMap(heightMap, upliftMap, drainageMap, streamGraph, settings, voronoiDelaunay.inverseSampleDensity);
             converged = true;
             for (PointD point : newHeightMap.keySet())
-                if (Math.abs(newHeightMap.get(point) - heightMap.get(point)) > settings.convergenceThreshold())
+                if (Math.abs(newHeightMap.get(point) - heightMap.get(point)) > settings.convergenceThreshold)
                     converged = false;
             heightMap = newHeightMap;
         }
 
-        assert streamGraph != null;
-        return new EroderResults(heightMap, getEroderEdges(streamGraph, drainageMap), eroderGeometry);
+        return new Results(heightMap, streamGraph, drainageMap, voronoiDelaunay);
     }
 
 
-    private static StreamGraph buildInitialStreamGraph(Map<PointD, Set<PointD>> graph, Map<PointD, Double> heightMap) {
+    private static Graph buildBaseGraph(Subdivision delaunaySubdivision) {
+        Graph out = new Graph();
+        for (SubdivisionEdge edge : delaunaySubdivision.edges().values()) {
+            PointD A = edge.origin();
+            PointD B = edge.destination();
+            out.putIfAbsent(A, new HashSet<>());
+            out.get(A).add(B);
+            out.putIfAbsent(B, new HashSet<>());
+            out.get(B).add(A);
+        }
+        return out;
+    }
+
+    private static StreamGraph buildInitialStreamGraph(Graph baseGraph, Map<PointD, Double> heightMap) {
         Function<PointD, PointD> getLowestNeighbor = point -> {
             PointD lowest = point;
-            for (PointD neighbor : graph.get(point))
+            for (PointD neighbor : baseGraph.get(point))
                 if (heightMap.get(neighbor) < heightMap.get(lowest))
                     lowest = neighbor;
             return lowest;
         };
         final StreamGraph out = new StreamGraph();
-        for (PointD point : graph.keySet()) {
+        for (PointD point : baseGraph.keySet()) {
             out.putIfAbsent(point, new HashSet<>());
             PointD lowest = getLowestNeighbor.apply(point);
             out.putIfAbsent(lowest, new HashSet<>());
@@ -80,11 +101,11 @@ public class Eroder {
         return out;
     }
 
-    private static void delakefyStreamGraph(StreamGraph streamGraph, Map<PointD, Set<PointD>> graph, Map<PointD, Double> heightMap, Set<PointD> drains) {
+    private static void delakefyStreamGraph(StreamGraph streamGraph, Subdivision delaunaySubdivision, Map<PointD, Double> heightMap, Set<PointD> drains) {
         if (drains.containsAll(streamGraph.roots))
             return;
 
-        LakePassMap lakePassMap = getLakePassMap(streamGraph, graph, heightMap);
+        LakePassMap lakePassMap = getLakePassMap(streamGraph, delaunaySubdivision, heightMap);
         SortedSet<LakePass> candidates = new TreeSet<>();
         for (PointD drain : drains) {
             candidates.addAll(lakePassMap.getTo(drain).values());
@@ -103,7 +124,7 @@ public class Eroder {
         }
     }
 
-    private static LakePassMap getLakePassMap(StreamGraph streamGraph, Map<PointD, Set<PointD>> graph, Map<PointD, Double> heightMap) {
+    private static LakePassMap getLakePassMap(StreamGraph streamGraph, Subdivision delaunaySubdivision, Map<PointD, Double> heightMap) {
         Function<PointD, PointD> getRoot = point -> {
             PointD node = point;
             PointD downstreamNode;
@@ -115,7 +136,7 @@ public class Eroder {
         LakePassMap out = new LakePassMap();
         for (PointD node : streamGraph.keySet()) {
             PointD nodeRoot = rootMap.get(node);
-            for (PointD neighbor : graph.get(node)) {
+            for (PointD neighbor : delaunaySubdivision.getNeighbors(node)) {
                 PointD neighborRoot = rootMap.get(neighbor);
                 if (nodeRoot == neighborRoot) continue;
                 double passHeight = Math.max(heightMap.get(node), heightMap.get(neighbor));
@@ -148,7 +169,7 @@ public class Eroder {
 
     private static Map<PointD, Double> computeNewHeightMap(Map<PointD, Double> oldHeightMap, Map<PointD, Double> upliftMap,
                                                            Map<PointD, Double> drainageMap, StreamGraph streamGraph,
-                                                           EroderSettings settings, double inverseSampleDensity) {
+                                                           Settings settings, double inverseSampleDensity) {
         final Map<PointD, Double> out = new HashMap<>(streamGraph.size());
         for (PointD drain : streamGraph.roots)
             computeNewHeightMap(oldHeightMap, upliftMap, drainageMap, streamGraph, settings, inverseSampleDensity, out, drain, null);
@@ -157,7 +178,7 @@ public class Eroder {
 
     private static void computeNewHeightMap(Map<PointD, Double> oldHeightMap, Map<PointD, Double> upliftMap,
                                             Map<PointD, Double> drainageMap, StreamGraph streamGraph,
-                                            EroderSettings settings, double inverseSampleDensity,
+                                            Settings settings, double inverseSampleDensity,
                                             Map<PointD, Double> out, PointD current, PointD downstream) {
         double distance;
         double downstreamHeight;
@@ -171,10 +192,10 @@ public class Eroder {
         double oldHeight = oldHeightMap.get(current);
         double uplift = upliftMap.get(current);
         double drainageArea = drainageMap.get(current);
-        double m = settings.mnRatio();
-        double k = settings.erosionRate();
-        double dt = settings.timeStep();
-        double maxSlope = Math.tan(Math.toRadians(settings.maxSlopeDegreesLambda().apply(current, oldHeight)));
+        double m = settings.mnRatio;
+        double k = settings.erosionRate;
+        double dt = settings.timeStep;
+        double maxSlope = Math.tan(Math.toRadians(settings.maxSlopeDegreesLambda.apply(current, oldHeight)));
 
         double erosionImportance = k * Math.pow(drainageArea, m) / distance;
         double newHeight = (oldHeight + dt * (uplift + erosionImportance * downstreamHeight)) / (1 + erosionImportance * dt);
@@ -186,80 +207,157 @@ public class Eroder {
             computeNewHeightMap(oldHeightMap, upliftMap, drainageMap, streamGraph, settings, inverseSampleDensity, out, neighbor, current);
     }
 
-    private static Set<EroderEdge> getEroderEdges(StreamGraph streamGraph, Map<PointD, Double> drainageMap) {
-        Set<EroderEdge> out = new HashSet<>();
-        streamGraph.forEach((node, neighbors) -> {
-            for (PointD neighbor : neighbors)
-                out.add(new EroderEdge(node, neighbor, drainageMap.get(neighbor)));
-        });
-        return out;
+
+    /**
+     * The input settings for {@link Eroder}
+     *
+     * @param upliftLambda             A surface function taking in a {@link PointD} and returning the uplift at that 2D point
+     * @param initialHeightLambda      A surface function taking in a {@link PointD} and returning the initial height at that 2D point
+     * @param erosionRate              A coefficient controlling how much water cuts in an erosion cycle
+     * @param mnRatio                  A value between 0 and 1 controlling the nature of the erosion (see stream power equation)
+     * @param maxSlopeDegreesLambda    A volume function taking in a {@link PointD} and a height and returning the maximum slope due to thermal erosion in degrees at that 3D point
+     * @param timeStep                 The simulated time taken between erosion cycles
+     * @param maxIterations            The maximum number of erosion cycles
+     * @param convergenceThreshold     The maximum height difference between two erosion cycles dictating when they should cease
+     */
+    public record Settings(Function<PointD, Double> upliftLambda, Function<PointD, Double> initialHeightLambda,
+                           double erosionRate, double mnRatio,
+                           BiFunction<PointD, Double, Double> maxSlopeDegreesLambda,
+                           double timeStep, int maxIterations, double convergenceThreshold) {
     }
 
+    /**
+     * The output of {@link Eroder}
+     */
+    public static class Results {
+        /**
+         * The mapping from each stream node to its height
+         */
+        public final Map<PointD, Double> heightMap;
+        /**
+         * The {@link StreamGraph} used in the last erosion iteration
+         */
+        public final StreamGraph streamGraph;
+        /**
+         * A mapping from each stream node to the volume of water that passes by it
+         */
+        public final Map<PointD, Double> drainageMap;
+        /**
+         * The maximum height in the heightmap
+         */
+        public final double maxHeight;
+        /**
+         * The minimum height in the heightmap
+         */
+        public final double minHeight;
 
-    private static class StreamGraph extends HashMap<PointD, Set<PointD>> {
-        public final Set<PointD> roots = new HashSet<>();
-        public final Map<PointD, PointD> downstreamMap = new HashMap<>();
-    }
+        /**
+         * The {@link VoronoiDelaunay} passed as input
+         */
+        protected final VoronoiDelaunay voronoiDelaunay;
 
-    private record LakePass(PointD rootFrom, PointD rootTo, PointD passFrom, PointD passTo,
-                            double passHeight) implements Comparable<LakePass> {
-        @Override
-        public int compareTo(LakePass lakePass) {
-            if (passHeight != lakePass.passHeight)
-                return Double.compare(passHeight, lakePass.passHeight);
-            else if (!Objects.equals(this, lakePass))
-                return Double.compare(this.hashCode(), lakePass.hashCode());
-            else
-                return 0;
+        Results(Map<PointD, Double> heightMap, StreamGraph streamGraph, Map<PointD, Double> drainageMap,
+                VoronoiDelaunay voronoiDelaunay) {
+            this.heightMap = heightMap;
+            this.streamGraph = streamGraph;
+            this.drainageMap = drainageMap;
+
+            this.voronoiDelaunay = voronoiDelaunay;
+
+            Optional<Double> max = heightMap.values().stream().max(Double::compareTo);
+            assert max.isPresent();
+            this.maxHeight = max.get();
+            Optional<Double> min = heightMap.values().stream().min(Double::compareTo);
+            this.minHeight = min.get();
         }
 
+        /**
+         * Interpolates the height of a point by nearest neighbor
+         *
+         * @param x The X coordinate of the point
+         * @param y The Y coordinate of that point
+         * @return The interpolated height at the point
+         */
+        public double interpolateNearestNeighbor(double x, double y) {
+            return interpolateNearestNeighbor(new PointD(x, y));
+        }
+
+        /**
+         * Interpolates the height of a point by nearest neighbor
+         *
+         * @param point The point to interpolate at
+         * @return The interpolated height at the point
+         */
+        public double interpolateNearestNeighbor(PointD point) {
+            return heightMap.get(voronoiDelaunay.delaunaySubdivision.findNearestNode(point));
+        }
+
+        /**
+         * Interpolated the height of a point with Inverse Distance Weighted
+         *
+         * @param x     The X coordinate of the point
+         * @param y     The Y coordinate of that point
+         * @param exponent The IDW inverse exponent parameter
+         * @param radius The radius of the IDW sample disk
+         * @return The interpolated height at the point
+         */
+        public double interpolateInverseDistanceWeighting(double x, double y, double exponent, int radius) {
+            return interpolateInverseDistanceWeighting(new PointD(x, y), exponent, radius);
+        }
+
+        /**
+         * Interpolated the height of a point with Inverse Distance Weighted
+         *
+         * @param point The point to interpolate at
+         * @param exponent The IDW inverse exponent parameter
+         * @param radius The radius of the IDW sample disk
+         * @return The interpolated height at the point
+         */
+        public double interpolateInverseDistanceWeighting(PointD point, double exponent, double radius) {
+            double numerator = 0.0D;
+            double denominator = 0.0D;
+            Subdivision delaunay = voronoiDelaunay.delaunaySubdivision;
+            PointD delta = new PointD(radius, radius);
+            for (
+                    PointD node
+                    :
+                    ((PointDComparatorY)(delaunay.vertices().comparator()))
+                            .findRange(delaunay.vertices(), new RectD(point.subtract(delta), point.add(delta)))
+                            .keySet()
+            ) {
+                if (node.subtract(point).lengthSquared() <= radius * radius) {
+                    double toAdd = Math.pow(point.subtract(node).lengthSquared(), exponent * -0.5D);
+                    numerator += heightMap.get(node) * toAdd;
+                    denominator += toAdd;
+                }
+            }
+            return numerator / denominator;
+        }
+
+
         @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            LakePass lakePass = (LakePass) o;
-            return Double.compare(passHeight, lakePass.passHeight) == 0 && Objects.equals(rootFrom, lakePass.rootFrom) && Objects.equals(rootTo, lakePass.rootTo);
+        public boolean equals(Object obj) {
+            if (obj == this) return true;
+            if (obj == null || obj.getClass() != this.getClass()) return false;
+            var that = (Results) obj;
+            return Objects.equals(this.heightMap, that.heightMap) &&
+                    Objects.equals(this.streamGraph, that.streamGraph) &&
+                    Objects.equals(this.drainageMap, that.drainageMap) &&
+                    Objects.equals(this.voronoiDelaunay, that.voronoiDelaunay);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(rootFrom, rootTo, passHeight);
-        }
-    }
-
-    private static class LakePassMap {
-        private final Map<PointD, Map<PointD, LakePass>> lakePassesByFrom = new HashMap<>();
-        private final Map<PointD, Map<PointD, LakePass>> lakePassesByTo = new HashMap<>();
-
-        public static LakePass anti(LakePass lakePass) {
-            return new LakePass(lakePass.rootTo(), lakePass.rootFrom(), lakePass.passTo(), lakePass.passFrom(), lakePass.passHeight());
+            return Objects.hash(heightMap, streamGraph, drainageMap, voronoiDelaunay);
         }
 
-        public Map<PointD, LakePass> getFrom(PointD pointD) {
-            return lakePassesByFrom.get(pointD);
-        }
-
-        public Map<PointD, LakePass> getTo(PointD pointD) {
-            return lakePassesByTo.get(pointD);
-        }
-
-        public void put(LakePass lakePass) {
-            lakePassesByFrom.putIfAbsent(lakePass.rootFrom(), new HashMap<>());
-            lakePassesByFrom.get(lakePass.rootFrom()).put(lakePass.rootTo(), lakePass);
-            lakePassesByTo.putIfAbsent(lakePass.rootTo(), new HashMap<>());
-            lakePassesByTo.get(lakePass.rootTo()).put(lakePass.rootFrom(), lakePass);
-        }
-
-        public void remove(LakePass lakePass) {
-            if (!Objects.isNull(lakePassesByFrom.get(lakePass.rootFrom())))
-                lakePassesByFrom.get(lakePass.rootFrom()).remove(lakePass.rootTo());
-            if (!Objects.isNull(lakePassesByTo.get(lakePass.rootTo())))
-                lakePassesByTo.get(lakePass.rootTo()).remove(lakePass.rootFrom());
-        }
-
-        public void removeAll(Collection<LakePass> lakePasses) {
-            for (LakePass lakePass : new HashSet<>(lakePasses))
-                remove(lakePass);
+        @Override
+        public String toString() {
+            return "Results[" +
+                    "heightMap=" + heightMap + ", " +
+                    "streamGraph=" + streamGraph + ", " +
+                    "drainageMap=" + drainageMap + ", " +
+                    "voronoiDelaunay=" + voronoiDelaunay + ']';
         }
     }
 }
