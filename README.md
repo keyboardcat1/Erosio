@@ -21,7 +21,7 @@ Erosio's features include:
 // Define bounding coordinates
 RectI bounds = new RectI(-256, -256, 256, 256);
 
-Eroder.Settings settings = new Eroder.Settings(
+EroderSettings settings = new EroderSettings(
         /*Uplift*/ p -> 1.0, /*Initial height*/ p -> 0.0,
         /*Erosion rate*/ 2.0, /*m:n ratio*/ 0.5,
         /*Max slope*/ (p, h) -> 30.0,
@@ -29,17 +29,20 @@ Eroder.Settings settings = new Eroder.Settings(
 );
 
 // Generate geometry input (reusable)
-VoronoiDelaunay voronoiDelaunay = new VoronoiDelaunay(
+EroderGeometry eroderGeometry = new EroderGeometryNatural(
         bounds.toRectD(), /*Inverse sample density*/ 2, /*Seed*/ 2
 );
 
 // Erode
-Eroder.Results results = Eroder.erode(settings, voronoiDelaunay);
+EroderResults results = Eroder.erode(settings, eroderGeometry);
 
-// Interpolate height at a point (2.0, 3.0)
-double heightNN = results.interpolateNearestNeighbor(2.0, 3.0);
-//or
-double heightIDW = results.interpolateInverseDistanceWeighting(2.0, 3.0, /*exponent*/ 2, /*radius*/ 5);
+// Interpolate height
+Interpolator interp = new InterpolatorNearest(results);
+// or
+Interpolator interp = new InterpolatorIDW(results, /*exponent*/ 2, /*radius*/ 5);
+
+// at point (2.0, 3.0)
+double height = interp.interpolate(2.0, 3.0);
 ```
 
 <p align="center">
