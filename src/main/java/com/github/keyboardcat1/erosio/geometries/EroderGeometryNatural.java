@@ -8,7 +8,7 @@ import org.kynosarges.tektosyne.subdivision.SubdivisionEdge;
 import java.util.*;
 
 /**
- * A natural looking geometry based on Poisson disk sampling and Delaunay triangulation
+ * A natural-looking geometry based on Poisson disk sampling and Delaunay triangulation
  */
 public class EroderGeometryNatural extends EroderGeometry {
     /**
@@ -26,6 +26,8 @@ public class EroderGeometryNatural extends EroderGeometry {
     public final long seed;
 
     /**
+     * A natural-looking geometry based on Poisson disk sampling and Delaunay triangulation
+     *
      * @param bounds               The bounding coordinates of a rectangular region
      * @param inverseSampleDensity The minimum distance between two nodes in the stream graph
      * @param seed                 A seed randomizing the sample points

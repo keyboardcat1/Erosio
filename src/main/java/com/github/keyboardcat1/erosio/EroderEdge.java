@@ -15,13 +15,18 @@ public final class EroderEdge {
      */
     public final PointD destination;
     /**
-     * The volume of water that flows through this edge
+     * The volume of water that flows through the origin
      */
-    public final double volume;
+    public final double volumeOrigin;
+    /**
+     * The volume of water that flows through the destination
+     */
+    public final double volumeDestination;
 
-    EroderEdge(PointD origin, PointD destination, double volume) {
+    EroderEdge(PointD origin, PointD destination, double volumeOrigin, double volumeDestination) {
         this.origin = origin;
         this.destination = destination;
-        this.volume = volume;
+        this.volumeOrigin = volumeOrigin;
+        this.volumeDestination = volumeDestination;
     }
 }

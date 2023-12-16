@@ -81,10 +81,8 @@ public class InterpolatorKriging extends Interpolator {
         double out = 0.0D;
         for (int i = 0; i < neighbors.size(); i++)
             out += weights.get(i, 0) * neighbors.get(i).getValue();
-
-        if (out < eroderResults.minHeight)
-            return eroderResults.minHeight;
-        else return Math.min(out, eroderResults.maxHeight);
+        
+        return out;
     }
 
 

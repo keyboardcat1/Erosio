@@ -195,11 +195,10 @@ public class Eroder {
         Set<EroderEdge> out = new HashSet<>();
         streamGraph.forEach((node, neighbors) -> {
             for (PointD neighbor : neighbors)
-                out.add(new EroderEdge(node, neighbor, drainageMap.get(neighbor)));
+                out.add(new EroderEdge(node, neighbor, drainageMap.get(neighbor), drainageMap.get(node)));
         });
         return out;
     }
-
 
     private static class StreamGraph extends HashMap<PointD, Set<PointD>> {
         public final Set<PointD> roots = new HashSet<>();
