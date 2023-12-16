@@ -37,8 +37,9 @@ public class InterpolatorIDW extends Interpolator {
         double denominator = 0.0D;
         for (Map.Entry<PointD, Double> entry : quadTree.findRange(point, radius).entrySet()) {
             PointD node = entry.getKey();
+            double height = entry.getValue();
             double W = Math.pow(point.subtract(node).lengthSquared(), exponent * -0.5D);
-            numerator += eroderResults.heightMap.get(node) * W;
+            numerator += height * W;
             denominator += W;
         }
         return numerator / denominator;

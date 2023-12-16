@@ -36,20 +36,18 @@ EroderGeometry eroderGeometry = new EroderGeometryNatural(
 // Erode
 EroderResults results = Eroder.erode(settings, eroderGeometry);
 
-// Interpolate height
-Interpolator interp = new InterpolatorNearest(results);
-// or
-Interpolator interp = new InterpolatorIDW(results, /*exponent*/ 2, /*radius*/ 5);
-
+// Interpolate height by nearest neighbor
+Interpolator interp = new InterpolatorNN(results);
 // at point (2.0, 3.0)
 double height = interp.interpolate(2.0, 3.0);
 ```
 
 <p align="center">
-    <img src="images/NN.png"  alt="NN interpolated heightmap" width="40%"/>
-    <img src="images/IDW.png"  alt="IDW interpolated heightmap" width="40%"/>
+    <img src="images/NN.png"  alt="NN interpolated heightmap" width="30%"/>
+    <img src="images/IDW.png"  alt="IDW interpolated heightmap" width="30%"/>
+<img src="images/Kriging.png"  alt="Kriging interpolated heightmap" width="30%"/>
     <br/>
-    <em>Resulting heightmap computed in 10 seconds (IDW interp. on the right)</em>
+    <em>Resulting heightmap computed in 10 seconds (left NN, center IDW, right Kriging)</em>
 </p>
 
 ## Usage

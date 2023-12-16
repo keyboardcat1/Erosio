@@ -22,6 +22,7 @@ dependencies {
     testImplementation(platform("org.junit:junit-bom:5.9.2"))
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
     implementation("org.kynosarges:tektosyne:6.2.0")
+    implementation("org.ejml:ejml-all:0.43.1")
 }
 
 tasks.test {

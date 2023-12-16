@@ -9,13 +9,13 @@ import org.kynosarges.tektosyne.geometry.PointD;
  */
 public abstract class Interpolator {
     /**
+     * The {@link EroderResults} to interpolate
+     */
+    public EroderResults eroderResults;
+    /**
      * The quadtree storing all the sample points
      */
     protected final QuadTree<Double> quadTree;
-    /**
-     * The {@link EroderResults} to interpolate
-     */
-    protected EroderResults eroderResults;
 
     /**
      * The base interpolation class

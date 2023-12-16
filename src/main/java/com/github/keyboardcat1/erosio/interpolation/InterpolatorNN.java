@@ -9,14 +9,14 @@ import java.util.List;
 /**
  * A class interpolating by nearest neighbor
  */
-public class InterpolatorNearest extends Interpolator {
+public class InterpolatorNN extends Interpolator {
 
     /**
      * A class interpolating by nearest neighbor
      *
      * @param eroderResults The {@link EroderResults} to interpolate
      */
-    public InterpolatorNearest(EroderResults eroderResults) {
+    public InterpolatorNN(EroderResults eroderResults) {
         super(eroderResults);
     }
 

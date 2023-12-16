@@ -4,10 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="77f92e6d-4ecb-422a-b86f-6c78dec6ec47" name="Changes" comment="Improved IDW&#10;&#10;Filtering closest samples based on radius">
+    <list default="true" id="77f92e6d-4ecb-422a-b86f-6c78dec6ec47" name="Changes" comment="Further optimized core algorithm&#10;&#10;Running faster than paper">
+      <change afterPath="$PROJECT_DIR$/images/Kriging.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/interpolation/InterpolatorKriging.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/Eroder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/Eroder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/EroderGeometry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/EroderGeometry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/IDW.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/IDW.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/interpolation/Interpolator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/interpolation/Interpolator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/interpolation/InterpolatorIDW.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/interpolation/InterpolatorIDW.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -35,6 +39,11 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="erosio" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="erosio" type="f1a62948:ProjectNode" />
+                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
               </path>
             </expand>
             <select />
@@ -93,6 +102,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Gradle.Erosio [:Demo.main()].executor": "Run",
+    "Gradle.Erosio [init].executor": "Run",
     "Gradle.rivers2 [:Demo.main()].executor": "Run",
     "Gradle.rivers2 [javadocJar].executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
@@ -123,7 +133,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="rivers2 [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="Erosio [init]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -134,7 +144,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value="build" />
+            <option value="init" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -213,18 +223,18 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Demo" />
+        <item itemvalue="Gradle.Erosio [init]" />
         <item itemvalue="Gradle.rivers2 [javadocJar]" />
         <item itemvalue="Gradle.rivers2 [publish]" />
         <item itemvalue="Gradle.rivers2 [compileJava]" />
-        <item itemvalue="Gradle.rivers2 [build]" />
-        <item itemvalue="Application.Demo" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-17.0.9-corretto-17.0.9-8336523bb0d9-9b5c8e75" />
+        <option value="jdk-17.0.9-corretto-17.0.9-249ae16d76d6-7c0527ad" />
       </set>
     </attachedChunks>
   </component>
@@ -317,8 +327,27 @@
       <option name="project" value="LOCAL" />
       <updated>1702243125704</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Further optimized core algorithm&#10;&#10;Running faster than paper">
+      <option name="closed" value="true" />
+      <created>1702726237457</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1702726237457</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+        <option value="Space.CommitStatus" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="RECENT_FILTERS">
@@ -374,7 +403,8 @@
     <MESSAGE value="Updated build.gradle.kts to version 1.1" />
     <MESSAGE value="Added polygonal bounds&#10;&#10;Converted Eroder.Results to a non-final class&#10;Added minHeight and maxHeight to Eroder.Results&#10;Made StreamGraph public" />
     <MESSAGE value="Improved IDW&#10;&#10;Filtering closest samples based on radius" />
-    <option name="LAST_COMMIT_MESSAGE" value="Improved IDW&#10;&#10;Filtering closest samples based on radius" />
+    <MESSAGE value="Further optimized core algorithm&#10;&#10;Running faster than paper" />
+    <option name="LAST_COMMIT_MESSAGE" value="Further optimized core algorithm&#10;&#10;Running faster than paper" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
