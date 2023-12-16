@@ -68,7 +68,7 @@ dependencies {
 <dependency>
   <groupId>com.github.keyboardcat1</groupId>
   <artifactId>erosio</artifactId>
-  <version>1.1</version>
+  <version>2.0</version>
 </dependency>
 ```
 

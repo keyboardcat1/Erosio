@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="77f92e6d-4ecb-422a-b86f-6c78dec6ec47" name="Changes" comment="Added Kriging interpolation&#10;&#10;3 models: Exponential, Spherical and Gaussian">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/geometries/EroderGeometryGrid.java" afterDir="false" />
+    <list default="true" id="77f92e6d-4ecb-422a-b86f-6c78dec6ec47" name="Changes" comment="Updated version to 2.0">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/Eroder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/Eroder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/EroderEdge.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/EroderEdge.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/geometries/EroderGeometryNatural.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/geometries/EroderGeometryNatural.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/interpolation/InterpolatorKriging.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/interpolation/InterpolatorKriging.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -341,7 +338,15 @@
       <option name="project" value="LOCAL" />
       <updated>1702737180397</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Added grid geometry&#10;&#10;Modified EroderEdge to include destination volume">
+      <option name="closed" value="true" />
+      <created>1702747186412</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1702747186412</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -411,7 +416,9 @@
     <MESSAGE value="Improved IDW&#10;&#10;Filtering closest samples based on radius" />
     <MESSAGE value="Further optimized core algorithm&#10;&#10;Running faster than paper" />
     <MESSAGE value="Added Kriging interpolation&#10;&#10;3 models: Exponential, Spherical and Gaussian" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Kriging interpolation&#10;&#10;3 models: Exponential, Spherical and Gaussian" />
+    <MESSAGE value="Added grid geometry&#10;&#10;Modified EroderEdge to include destination volume" />
+    <MESSAGE value="Updated version to 2.0" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated version to 2.0" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
