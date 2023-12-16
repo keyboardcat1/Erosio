@@ -18,11 +18,15 @@ repositories {
     mavenCentral()
 }
 
+val extraLibs by configurations.creating
+val implementation by configurations
+
 dependencies {
     testImplementation(platform("org.junit:junit-bom:5.9.2"))
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
-    implementation("org.kynosarges:tektosyne:6.2.0")
-    implementation("org.ejml:ejml-all:0.43.1")
+    extraLibs("org.kynosarges:tektosyne:6.2.0")
+    extraLibs("org.ejml:ejml-all:0.43.1")
+    implementation.extendsFrom(extraLibs)
 }
 
 tasks.test {
@@ -45,5 +49,9 @@ publishing {
             }
         }
     }
+}
+
+tasks.jar {
+    from(extraLibs.map { if (it.isDirectory) it else zipTree(it) })
 }
 

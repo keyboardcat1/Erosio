@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="77f92e6d-4ecb-422a-b86f-6c78dec6ec47" name="Changes" comment="Updated version to 2.0" />
+    <list default="true" id="77f92e6d-4ecb-422a-b86f-6c78dec6ec47" name="Changes" comment="Corrected kriging doc" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -30,6 +30,29 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="erosio" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="erosio" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="erosio" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="erosio" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build setup" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="erosio" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="documentation" type="c8890929:TasksNode$1" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
@@ -97,6 +120,7 @@
   &quot;keyToString&quot;: {
     &quot;Gradle.Erosio [:Demo.main()].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.Erosio [init].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Erosio [javadoc].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.rivers2 [:Demo.main()].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.rivers2 [javadocJar].executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
@@ -119,7 +143,7 @@
       <recent name="org.example" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Demo">
+  <component name="RunManager" selected="Gradle.Erosio [javadoc]">
     <configuration name="Demo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Demo" />
       <module name="erosio.test" />
@@ -149,7 +173,7 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="rivers2 [compileJava]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="Erosio [javadoc]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -160,7 +184,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value="compileJava" />
+            <option value="javadoc" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -217,11 +241,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.Erosio [javadoc]" />
         <item itemvalue="Application.Demo" />
         <item itemvalue="Gradle.Erosio [init]" />
         <item itemvalue="Gradle.rivers2 [javadocJar]" />
         <item itemvalue="Gradle.rivers2 [publish]" />
-        <item itemvalue="Gradle.rivers2 [compileJava]" />
       </list>
     </recent_temporary>
   </component>
@@ -345,7 +369,15 @@
       <option name="project" value="LOCAL" />
       <updated>1702747186412</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Corrected kriging doc">
+      <option name="closed" value="true" />
+      <created>1702755492299</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1702755492299</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -417,7 +449,8 @@
     <MESSAGE value="Added Kriging interpolation&#10;&#10;3 models: Exponential, Spherical and Gaussian" />
     <MESSAGE value="Added grid geometry&#10;&#10;Modified EroderEdge to include destination volume" />
     <MESSAGE value="Updated version to 2.0" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated version to 2.0" />
+    <MESSAGE value="Corrected kriging doc" />
+    <option name="LAST_COMMIT_MESSAGE" value="Corrected kriging doc" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

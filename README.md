@@ -59,7 +59,7 @@ Erosio is available via GitHub Packages. Learn more about it
 #### Gradle
 ```groovy
 dependencies {
-    implementation 'com.github.keyboardcat1:erosio:1.1'
+    implementation 'com.github.keyboardcat1:erosio:2.0'
 }
 ```
 
@@ -69,29 +69,6 @@ dependencies {
   <groupId>com.github.keyboardcat1</groupId>
   <artifactId>erosio</artifactId>
   <version>2.0</version>
-</dependency>
-```
-
-
-### Dependencies
-
-This package makes heavy use of [The Tektosyne Library ](https://github.com/kynosarges/tektosyne) and as such is a required dependency.
-Tektosyne is available via mavenCentral and JCenter:
-
-#### Graddle
-```groovy
-dependencies {
-    implementation 'org.kynosarges:tektosyne:6.2.0'
-}
-```
-
-#### Maven
-```xml
-<dependency>
-  <groupId>org.kynosarges</groupId>
-  <artifactId>tektosyne</artifactId>
-  <version>6.2.0</version>
-  <scope>compile</scope>
 </dependency>
 ```
 
