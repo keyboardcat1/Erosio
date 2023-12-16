@@ -3,7 +3,7 @@ package com.github.keyboardcat1.erosio.interpolation;
 import com.github.keyboardcat1.erosio.EroderResults;
 import org.kynosarges.tektosyne.geometry.PointD;
 
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.Map;
 
 /**
  * A class interpolating with Inverse Distance Weighting
@@ -33,13 +33,14 @@ public class InterpolatorIDW extends Interpolator {
 
     @Override
     public double interpolate(PointD point) {
-        AtomicReference<Double> numerator = new AtomicReference<>(0.0D);
-        AtomicReference<Double> denominator = new AtomicReference<>(0.0D);
-        quadTree.findRange(point, radius).forEach((node, height) -> {
+        double numerator = 0.0D;
+        double denominator = 0.0D;
+        for (Map.Entry<PointD, Double> entry : quadTree.findRange(point, radius).entrySet()) {
+            PointD node = entry.getKey();
             double W = Math.pow(point.subtract(node).lengthSquared(), exponent * -0.5D);
-            numerator.updateAndGet(v -> v + eroderResults.heightMap.get(node) * W);
-            denominator.updateAndGet(v -> v + W);
-        });
-        return numerator.get() / denominator.get();
+            numerator += eroderResults.heightMap.get(node) * W;
+            denominator += W;
+        }
+        return numerator / denominator;
     }
 }

@@ -70,10 +70,9 @@ public class Eroder {
             out.putIfAbsent(point, new HashSet<>());
             PointD lowest = getLowestNeighbor.apply(point);
             out.putIfAbsent(lowest, new HashSet<>());
-            if (!lowest.equals(point)) {
+            if (!lowest.equals(point))
                 out.get(lowest).add(point);
-                out.downstreamMap.put(point, lowest);
-            } else
+            else
                 out.roots.add(point);
         }
 
@@ -104,15 +103,19 @@ public class Eroder {
     }
 
     private static LakePassMap getLakePassMap(StreamGraph streamGraph, Map<PointD, Set<PointD>> graph, Map<PointD, Double> heightMap) {
-        Function<PointD, PointD> getRoot = point -> {
-            PointD node = point;
-            PointD downstreamNode;
-            while ((downstreamNode = streamGraph.downstreamMap.get(node)) != null) node = downstreamNode;
-            return node;
-        };
-        Map<PointD, PointD> rootMap = streamGraph.keySet().stream().collect(Collectors.toMap(p -> p, getRoot));
+        Map<PointD, PointD> rootMap = new HashMap<>();
+        Queue<Map.Entry<PointD, PointD>> rootQueue = new ArrayDeque<>(
+                streamGraph.roots.stream().collect(Collectors.toMap(k -> k, v -> v)).entrySet()
+        );
+        while (!rootQueue.isEmpty()) {
+            Map.Entry<PointD, PointD> current = rootQueue.poll();
+            rootMap.put(current.getKey(), current.getValue());
+            for (PointD neighbor : streamGraph.get(current.getKey())) {
+                rootQueue.add(new AbstractMap.SimpleImmutableEntry<>(neighbor, current.getValue()));
+            }
+        }
 
-        LakePassMap out = new LakePassMap();
+        final LakePassMap out = new LakePassMap();
         for (PointD node : streamGraph.keySet()) {
             PointD nodeRoot = rootMap.get(node);
             for (PointD neighbor : graph.get(node)) {
@@ -150,40 +153,42 @@ public class Eroder {
                                                            Map<PointD, Double> drainageMap, StreamGraph streamGraph,
                                                            EroderSettings settings, double inverseSampleDensity) {
         final Map<PointD, Double> out = new HashMap<>(streamGraph.size());
-        for (PointD drain : streamGraph.roots)
-            computeNewHeightMap(oldHeightMap, upliftMap, drainageMap, streamGraph, settings, inverseSampleDensity, out, drain, null);
-        return out;
-    }
+        Queue<Map.Entry<PointD, PointD>> downstreamQueue = new ArrayDeque<>(
+                streamGraph.roots.stream().collect(Collectors.toMap(k -> k, v -> PointD.EMPTY)).entrySet()
+        );
 
-    private static void computeNewHeightMap(Map<PointD, Double> oldHeightMap, Map<PointD, Double> upliftMap,
-                                            Map<PointD, Double> drainageMap, StreamGraph streamGraph,
-                                            EroderSettings settings, double inverseSampleDensity,
-                                            Map<PointD, Double> out, PointD current, PointD downstream) {
-        double distance;
-        double downstreamHeight;
-        if (Objects.isNull(downstream)) {
-            distance = inverseSampleDensity;
-            downstreamHeight = 0;
-        } else {
-            distance = current.subtract(downstream).length();
-            downstreamHeight = out.get(downstream);
+        while (!downstreamQueue.isEmpty()) {
+            Map.Entry<PointD, PointD> entry = downstreamQueue.poll();
+            PointD current = entry.getKey();
+            PointD downstream = entry.getValue();
+
+            double distance;
+            double downstreamHeight;
+            if (downstream == PointD.EMPTY) {
+                distance = inverseSampleDensity;
+                downstreamHeight = 0;
+            } else {
+                distance = current.subtract(downstream).length();
+                downstreamHeight = out.get(downstream);
+            }
+            double oldHeight = oldHeightMap.get(current);
+            double uplift = upliftMap.get(current);
+            double drainageArea = drainageMap.get(current);
+            double m = settings.mnRatio();
+            double k = settings.erosionRate();
+            double dt = settings.timeStep();
+            double maxSlope = Math.tan(Math.toRadians(settings.maxSlopeDegreesLambda().apply(current, oldHeight)));
+
+            double erosionImportance = k * Math.pow(drainageArea, m) / distance;
+            double newHeight = (oldHeight + dt * (uplift + erosionImportance * downstreamHeight)) / (1 + erosionImportance * dt);
+            double slope = (newHeight - downstreamHeight) / distance;
+            if (Math.abs(slope) > maxSlope) newHeight = distance * maxSlope;
+            out.put(current, newHeight);
+
+            for (PointD neighbor : streamGraph.get(current))
+                downstreamQueue.add(new AbstractMap.SimpleImmutableEntry<>(neighbor, current));
         }
-        double oldHeight = oldHeightMap.get(current);
-        double uplift = upliftMap.get(current);
-        double drainageArea = drainageMap.get(current);
-        double m = settings.mnRatio();
-        double k = settings.erosionRate();
-        double dt = settings.timeStep();
-        double maxSlope = Math.tan(Math.toRadians(settings.maxSlopeDegreesLambda().apply(current, oldHeight)));
-
-        double erosionImportance = k * Math.pow(drainageArea, m) / distance;
-        double newHeight = (oldHeight + dt * (uplift + erosionImportance * downstreamHeight)) / (1 + erosionImportance * dt);
-        double slope = (newHeight - downstreamHeight) / distance;
-        if (Math.abs(slope) > maxSlope) newHeight = distance * maxSlope;
-        out.put(current, newHeight);
-
-        for (PointD neighbor : streamGraph.get(current))
-            computeNewHeightMap(oldHeightMap, upliftMap, drainageMap, streamGraph, settings, inverseSampleDensity, out, neighbor, current);
+        return out;
     }
 
     private static Set<EroderEdge> getEroderEdges(StreamGraph streamGraph, Map<PointD, Double> drainageMap) {
@@ -198,7 +203,6 @@ public class Eroder {
 
     private static class StreamGraph extends HashMap<PointD, Set<PointD>> {
         public final Set<PointD> roots = new HashSet<>();
-        public final Map<PointD, PointD> downstreamMap = new HashMap<>();
     }
 
     private record LakePass(PointD rootFrom, PointD rootTo, PointD passFrom, PointD passTo,

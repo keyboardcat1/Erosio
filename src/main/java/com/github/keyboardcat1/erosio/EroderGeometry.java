@@ -39,4 +39,13 @@ public abstract class EroderGeometry {
         this.minDistance = minDistance;
     }
 
+    /**
+     * The number of nodes in the graph
+     *
+     * @return The number of nodes in the graph
+     */
+    public int nodeCount() {
+        return graph.size();
+    }
+
 }
