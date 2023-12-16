@@ -29,7 +29,7 @@ public class InterpolatorKriging extends Interpolator {
      */
     public final double range;
     /**
-     * The <i>a<i/> coefficient in the exponential and gaussian variogram formulas
+     * The <i>a</i> coefficient in the exponential and gaussian variogram formulas
      */
     public final double a;
 
@@ -42,7 +42,7 @@ public class InterpolatorKriging extends Interpolator {
      * @param nugget        The nugget parameter in the variogram formula
      * @param sill          The sill parameter in the variogram formula
      * @param range         The range parameter in the variogram formula
-     * @param a             The <i>a<i/> coefficient in the exponential and gaussian variogram formulas
+     * @param a             The <i>a</i> coefficient in the exponential and gaussian variogram formulas
      */
     public InterpolatorKriging(EroderResults eroderResults, Model model, double nugget, double sill, double range, double a) {
         super(eroderResults);
@@ -111,11 +111,20 @@ public class InterpolatorKriging extends Interpolator {
     /**
      * The variogram models that can be used to calculate variances
      *
-     * @see <a href=https://en.wikipedia.org/wiki/Variogram#Variogram_models>Variogram models<a/>
+     * @see <a href=https://en.wikipedia.org/wiki/Variogram#Variogram_models>Variogram models</a>
      */
     public enum Model {
+        /**
+         * Exponential variogram model
+         */
         EXPONENTIAL,
+        /**
+         * Spherical variogram model
+         */
         SPHERICAL,
+        /**
+         * Gaussian variogram model
+         */
         GAUSSIAN
     }
 }
