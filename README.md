@@ -54,7 +54,7 @@ double height = interp.interpolate(2.0, 3.0);
 
 Erosio is available via GitHub Packages. Learn more about it
 [here](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry)
-(Gradle) and [here](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-gradle-registry) (Maven)
+(Maven) and [here](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-gradle-registry) (Gradle)
 
 #### Gradle
 ```groovy
