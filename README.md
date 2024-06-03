@@ -72,3 +72,11 @@ dependencies {
 </dependency>
 ```
 
+---
+
+## WIP
+
+- Next version: gaussian blur and more work on interpolation
+- Version 3.0: GPU optimized
+
+
