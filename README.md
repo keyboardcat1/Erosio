@@ -5,7 +5,7 @@ A Java API for fast erosion
 ## Overview
 
 This project is a Java implementation of [Large Scale Terrain Generation from Tectonic Uplift and Fluvial Erosion](https://inria.hal.science/hal-01262376/document) by Guillaume Cordonnier.
-All described methods excluding 3D rendering are implemented with similar computation times.
+All described methods, excluding 3D rendering, are implemented with similar (slightly faster) computation times.
 
 
 Erosio's features include:
