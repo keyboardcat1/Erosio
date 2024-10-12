@@ -19,6 +19,8 @@ public class InterpolatorGaussianKernel extends Interpolator {
     /**
      * A class interpolating with gaussian kernels
      *
+     * @param stddevInverseCoefficient gaussian distribution inverse standard deviation
+     * @param normalizedError error margin proportion (small)
      * @param eroderResults The {@link EroderResults} to interpolate
      */
     public InterpolatorGaussianKernel(EroderResults eroderResults, double stddevInverseCoefficient, double normalizedError) {
