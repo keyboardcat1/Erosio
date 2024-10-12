@@ -6,7 +6,6 @@ import org.kynosarges.tektosyne.geometry.PointD;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 /**
  * A class interpolating with Kriging interpolation
@@ -55,7 +54,7 @@ public class InterpolatorKriging extends Interpolator {
 
     @Override
     public double interpolate(PointD point) {
-        List<Map.Entry<PointD, Double>> neighbors = quadTree.findRange(point, range).entrySet().stream().toList();
+        List<PointD> neighbors = getRange(point, range).stream().toList();
 
         SimpleMatrix matrix = new SimpleMatrix(neighbors.size() + 1, neighbors.size() + 1);
         double[] edge = new double[neighbors.size() + 1];
@@ -66,21 +65,21 @@ public class InterpolatorKriging extends Interpolator {
         for (int i = 0; i <= neighbors.size(); i++)
             for (int j = 0; j <= neighbors.size(); j++) {
                 double lagDistance = i < neighbors.size() && j < neighbors.size() ?
-                        neighbors.get(i).getKey().subtract(neighbors.get(j).getKey()).length() :
+                        neighbors.get(i).subtract(neighbors.get(j)).length() :
                         matrix.get(i, j);
                 matrix.set(i, j, semiVariance(lagDistance));
             }
 
         SimpleMatrix vector = new SimpleMatrix(neighbors.size() + 1, 1);
         for (int i = 0; i < neighbors.size(); i++)
-            vector.set(i, 0, neighbors.get(i).getKey().subtract(point).length());
+            vector.set(i, 0, neighbors.get(i).subtract(point).length());
         vector.set(neighbors.size(), 0, 1);
 
         SimpleMatrix weights = matrix.solve(vector);
 
         double out = 0.0D;
         for (int i = 0; i < neighbors.size(); i++)
-            out += weights.get(i, 0) * neighbors.get(i).getValue();
+            out += weights.get(i, 0) * eroderResults.heightMap.get(neighbors.get(i));
         
         return out;
     }

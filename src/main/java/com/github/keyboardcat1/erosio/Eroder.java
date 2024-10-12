@@ -47,8 +47,10 @@ public class Eroder {
             Map<PointD, Double> newHeightMap = computeNewHeightMap(heightMap, upliftMap, drainageMap, streamGraph, settings, eroderGeometry.minDistance);
             converged = true;
             for (PointD point : newHeightMap.keySet())
-                if (Math.abs(newHeightMap.get(point) - heightMap.get(point)) > settings.convergenceThreshold())
-                    converged = false;
+                if (Math.abs(newHeightMap.get(point) - heightMap.get(point)) > settings.convergenceThreshold()) {
+                        converged = false;
+                        break;
+                    }
             heightMap = newHeightMap;
         }
 
@@ -151,7 +153,7 @@ public class Eroder {
 
     private static Map<PointD, Double> computeNewHeightMap(Map<PointD, Double> oldHeightMap, Map<PointD, Double> upliftMap,
                                                            Map<PointD, Double> drainageMap, StreamGraph streamGraph,
-                                                           EroderSettings settings, double inverseSampleDensity) {
+                                                           EroderSettings settings, double minDistance) {
         final Map<PointD, Double> out = new HashMap<>(streamGraph.size());
         Queue<Map.Entry<PointD, PointD>> downstreamQueue = new ArrayDeque<>(
                 streamGraph.roots.stream().collect(Collectors.toMap(k -> k, v -> PointD.EMPTY)).entrySet()
@@ -165,7 +167,7 @@ public class Eroder {
             double distance;
             double downstreamHeight;
             if (downstream == PointD.EMPTY) {
-                distance = inverseSampleDensity;
+                distance = minDistance;
                 downstreamHeight = 0;
             } else {
                 distance = current.subtract(downstream).length();
@@ -177,11 +179,11 @@ public class Eroder {
             double m = settings.mnRatio();
             double k = settings.erosionRate();
             double dt = settings.timeStep();
-            double maxSlope = Math.tan(Math.toRadians(settings.maxSlopeDegreesLambda().apply(current, oldHeight)));
 
             double erosionImportance = k * Math.pow(drainageArea, m) / distance;
             double newHeight = (oldHeight + dt * (uplift + erosionImportance * downstreamHeight)) / (1 + erosionImportance * dt);
             double slope = (newHeight - downstreamHeight) / distance;
+            double maxSlope = Math.tan(Math.toRadians(settings.maxSlopeDegreesLambda().apply(current, newHeight)));
             if (Math.abs(slope) > maxSlope) newHeight = distance * maxSlope;
             out.put(current, newHeight);
 

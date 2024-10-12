@@ -22,7 +22,7 @@ public abstract class EroderGeometry {
     /**
      * The base graph defining if water flows between nodes by setting neighbors
      */
-    protected final Map<PointD, Set<PointD>> graph = new HashMap<>();
+    public final Map<PointD, Set<PointD>> graph = new HashMap<>();
     /**
      * The mapping from every node to the surface area of the region closest to it
      */
