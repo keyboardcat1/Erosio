@@ -4,13 +4,13 @@ plugins {
 }
 
 group = "com.github.keyboardcat1"
-version = "2.1"
+version = "2.2"
 
 java {
     withSourcesJar()
     withJavadocJar()
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
+        languageVersion.set(JavaLanguageVersion.of(21))
     }
 }
 
@@ -22,10 +22,12 @@ val extraLibs by configurations.creating
 val implementation by configurations
 
 dependencies {
-    testImplementation(platform("org.junit:junit-bom:5.9.2"))
-    testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
+    testImplementation(platform("org.junit:junit-bom:5.10.3"))
+    testImplementation("org.junit.jupiter:junit-jupiter:5.10.3")
+    implementation("org.jogamp.jogl:jogl-all-main:2.3.2")
+    implementation("org.jogamp.gluegen:gluegen-rt-main:2.3.2")
     extraLibs("org.kynosarges:tektosyne:6.2.0")
-    extraLibs("org.ejml:ejml-all:0.43.1")
+    extraLibs("org.ejml:ejml-all:0.43")
     implementation.extendsFrom(extraLibs)
 }
 
