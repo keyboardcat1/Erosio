@@ -184,7 +184,7 @@ public class Eroder {
             double newHeight = (oldHeight + dt * (uplift + erosionImportance * downstreamHeight)) / (1 + erosionImportance * dt);
             double slope = (newHeight - downstreamHeight) / distance;
             double maxSlope = Math.tan(Math.toRadians(settings.maxSlopeDegreesLambda().apply(current, newHeight)));
-            if (Math.abs(slope) > maxSlope) newHeight = distance * maxSlope;
+            if (Math.abs(slope) > maxSlope) newHeight = downstreamHeight + distance * maxSlope;
             out.put(current, newHeight);
 
             for (PointD neighbor : streamGraph.get(current))
