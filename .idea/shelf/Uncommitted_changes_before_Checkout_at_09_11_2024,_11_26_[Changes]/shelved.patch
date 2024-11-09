@@ -1,0 +1,184 @@
+Index: src/main/java/com/github/keyboardcat1/erosio/EroderGeometry.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.github.keyboardcat1.erosio;\n\nimport org.kynosarges.tektosyne.geometry.PointD;\nimport org.kynosarges.tektosyne.geometry.RectD;\n\nimport java.util.HashMap;\nimport java.util.Map;\nimport java.util.Set;\n\n/**\n * The geometry underlying a stream graph\n */\npublic abstract class EroderGeometry {\n    /**\n     * The region bounding the erosion\n     */\n    public final RectD bounds;\n    /**\n     * The minimum distance between two nodes, setting the resolution\n     */\n    public final double minDistance;\n    /**\n     * The base graph defining if water flows between nodes by setting neighbors\n     */\n    public final Map<PointD, Set<PointD>> graph = new HashMap<>();\n    /**\n     * The mapping from every node to the surface area of the region closest to it\n     */\n    protected final Map<PointD, Double> areaMap = new HashMap<>();\n\n    /**\n     * The geometry underlying a stream graph\n     *\n     * @param bounds      The region bounding the erosion\n     * @param minDistance The minimum distance between two nodes, setting the resolution\n     */\n    public EroderGeometry(RectD bounds, double minDistance) {\n        this.bounds = bounds;\n        this.minDistance = minDistance;\n    }\n\n    /**\n     * The number of nodes in the graph\n     *\n     * @return The number of nodes in the graph\n     */\n    public int nodeCount() {\n        return graph.size();\n    }\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/github/keyboardcat1/erosio/EroderGeometry.java b/src/main/java/com/github/keyboardcat1/erosio/EroderGeometry.java
+--- a/src/main/java/com/github/keyboardcat1/erosio/EroderGeometry.java	(revision a9af72292ef7285f6256c4a8e346691ed82bfd71)
++++ b/src/main/java/com/github/keyboardcat1/erosio/EroderGeometry.java	(date 1731147901331)
+@@ -12,9 +12,9 @@
+  */
+ public abstract class EroderGeometry {
+     /**
+-     * The region bounding the erosion
++     * The bounding coordinates of a polygonal region
+      */
+-    public final RectD bounds;
++    public final PointD[] boundingPolygon;
+     /**
+      * The minimum distance between two nodes, setting the resolution
+      */
+@@ -23,6 +23,8 @@
+      * The base graph defining if water flows between nodes by setting neighbors
+      */
+     public final Map<PointD, Set<PointD>> graph = new HashMap<>();
++
++
+     /**
+      * The mapping from every node to the surface area of the region closest to it
+      */
+@@ -31,11 +33,11 @@
+     /**
+      * The geometry underlying a stream graph
+      *
+-     * @param bounds      The region bounding the erosion
+-     * @param minDistance The minimum distance between two nodes, setting the resolution
++     * @param boundingPolygon The bounding coordinates of a polygonal region
++     * @param minDistance     The minimum distance between two nodes, setting the resolution
+      */
+-    public EroderGeometry(RectD bounds, double minDistance) {
+-        this.bounds = bounds;
++    public EroderGeometry(PointD[] boundingPolygon, double minDistance) {
++        this.boundingPolygon = boundingPolygon;
+         this.minDistance = minDistance;
+     }
+ 
+@@ -48,4 +50,13 @@
+         return graph.size();
+     }
+ 
++    /**
++     * Converts a {@link RectD} to a polygon
++     *
++     * @param rectD The RectD to be converted
++     * @return A polygon to be used as a bounding polygon
++     */
++    public static PointD[] RectDtoPolygon(RectD rectD) {
++        return new PointD[]{rectD.min, rectD.min.add(new PointD(rectD.width(), 0.0)), rectD.max, rectD.max.subtract(new PointD(rectD.width(), 0.0))};
++    } 
+ }
+Index: src/test/java/Demo.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import com.github.keyboardcat1.erosio.Eroder;\nimport com.github.keyboardcat1.erosio.EroderGeometry;\nimport com.github.keyboardcat1.erosio.EroderResults;\nimport com.github.keyboardcat1.erosio.EroderSettings;\nimport com.github.keyboardcat1.erosio.geometries.EroderGeometryNatural;\nimport com.github.keyboardcat1.erosio.interpolation.Interpolator;\nimport com.github.keyboardcat1.erosio.interpolation.InterpolatorIDW;\nimport org.kynosarges.tektosyne.geometry.RectI;\n\nimport javax.imageio.ImageIO;\nimport java.awt.*;\nimport java.awt.image.BufferedImage;\nimport java.io.File;\nimport java.io.IOException;\n\npublic class Demo {\n    public static void main(String[] args) throws IOException {\n        RectI bounds = new RectI(-256, -256, 256, 256);\n        EroderSettings settings = new EroderSettings(\n                p -> 1.0, p -> 0.0,\n                2.0, 0.5,\n                (p,h) -> 30.0,\n                1, 10, 1E-2\n        );\n        EroderGeometry eroderGeometry = new EroderGeometryNatural(bounds.toRectD(), 2, 2);\n        EroderResults results = Eroder.erode(settings, eroderGeometry);\n\n        Interpolator interpolator = new InterpolatorIDW(results, 2, 5);\n\n        BufferedImage image = new BufferedImage((int) bounds.width(), (int) bounds.height(), BufferedImage.TYPE_INT_RGB);\n        for (int x = bounds.min.x; x < bounds.max.x; x++) for (int y = bounds.min.y; y < bounds.max.y; y++) {\n            double value = interpolator.interpolate(x, y);\n            int intensity = (int) (255 * value / results.maxHeight);\n            image.setRGB(x - bounds.min.x, y - bounds.min.y, new Color(intensity, intensity, intensity).getRGB());\n        }\n\n        String path = \"images/IDW.png\";\n        ImageIO.write(image, \"PNG\", new File(path));\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/java/Demo.java b/src/test/java/Demo.java
+--- a/src/test/java/Demo.java	(revision a9af72292ef7285f6256c4a8e346691ed82bfd71)
++++ b/src/test/java/Demo.java	(date 1731147973850)
+@@ -4,7 +4,7 @@
+ import com.github.keyboardcat1.erosio.EroderSettings;
+ import com.github.keyboardcat1.erosio.geometries.EroderGeometryNatural;
+ import com.github.keyboardcat1.erosio.interpolation.Interpolator;
+-import com.github.keyboardcat1.erosio.interpolation.InterpolatorIDW;
++import com.github.keyboardcat1.erosio.interpolation.InterpolatorGaussianKernel;
+ import org.kynosarges.tektosyne.geometry.RectI;
+ 
+ import javax.imageio.ImageIO;
+@@ -22,10 +22,13 @@
+                 (p,h) -> 30.0,
+                 1, 10, 1E-2
+         );
+-        EroderGeometry eroderGeometry = new EroderGeometryNatural(bounds.toRectD(), 2, 2);
++        EroderGeometry eroderGeometry = new EroderGeometryNatural(EroderGeometry.RectDtoPolygon(bounds.toRectD()), 2, 2);
+         EroderResults results = Eroder.erode(settings, eroderGeometry);
+ 
+-        Interpolator interpolator = new InterpolatorIDW(results, 2, 5);
++        Interpolator interpolator = new InterpolatorGaussianKernel(results, 2.5, 1E-6);
++        // Interpolator interpolator = new InterpolatorIDW(results, 2, 50);
++        // Interpolator interpolator = new InterpolatorNN(results);
++        // Interpolator interpolator = new InterpolatorKriging(results, InterpolatorKriging.Model.EXPONENTIAL, 1, 10, 10, 1);
+ 
+         BufferedImage image = new BufferedImage((int) bounds.width(), (int) bounds.height(), BufferedImage.TYPE_INT_RGB);
+         for (int x = bounds.min.x; x < bounds.max.x; x++) for (int y = bounds.min.y; y < bounds.max.y; y++) {
+Index: src/main/java/com/github/keyboardcat1/erosio/geometries/EroderGeometryGrid.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.github.keyboardcat1.erosio.geometries;\n\nimport com.github.keyboardcat1.erosio.EroderGeometry;\nimport org.kynosarges.tektosyne.geometry.PointD;\nimport org.kynosarges.tektosyne.geometry.RectD;\n\nimport java.util.HashSet;\n\n/**\n * A simple and fast grid geometry\n */\npublic class EroderGeometryGrid extends EroderGeometry {\n    private static final double EPSILON = 1E-12;\n\n    /**\n     * A simple and fast grid geometry\n     *\n     * @param bounds      The region bounding the erosion\n     * @param minDistance The minimum distance between two nodes, setting the resolution\n     */\n    public EroderGeometryGrid(RectD bounds, double minDistance) {\n        super(bounds, minDistance + EPSILON);\n        minDistance = minDistance + EPSILON;\n        int horizontalCount = (int) (bounds.width() / minDistance);\n        int verticalCount = (int) (bounds.height() / minDistance);\n        double horizontalMargin = (bounds.width() - horizontalCount * minDistance) / 2;\n        double verticalMargin = (bounds.height() - verticalCount * minDistance) / 2;\n        for (int x = 0; x <= horizontalCount; x++)\n            for (int y = 0; y <= verticalCount; y++) {\n                PointD node = new PointD(x * minDistance + horizontalMargin, y * minDistance + verticalMargin).add(bounds.min);\n                graph.put(node, new HashSet<>(4));\n                for (int dx = -1; dx <= 1; dx++)\n                    for (int dy = -1; dy <= 1; dy++) {\n                        if (dx == 0 && dy == 0) continue;\n                        if (dx * dy != 0) continue;\n                        PointD neighbor = new PointD((x + dx) * minDistance + horizontalMargin, (y + dy) * minDistance + verticalMargin).add(bounds.min);\n                        if (!bounds.contains(neighbor)) continue;\n                        graph.get(node).add(neighbor);\n                    }\n            }\n\n        for (PointD node : graph.keySet()) {\n            areaMap.put(node, minDistance * minDistance);\n        }\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/github/keyboardcat1/erosio/geometries/EroderGeometryGrid.java b/src/main/java/com/github/keyboardcat1/erosio/geometries/EroderGeometryGrid.java
+--- a/src/main/java/com/github/keyboardcat1/erosio/geometries/EroderGeometryGrid.java	(revision a9af72292ef7285f6256c4a8e346691ed82bfd71)
++++ b/src/main/java/com/github/keyboardcat1/erosio/geometries/EroderGeometryGrid.java	(date 1731147541765)
+@@ -1,7 +1,9 @@
+ package com.github.keyboardcat1.erosio.geometries;
+ 
+ import com.github.keyboardcat1.erosio.EroderGeometry;
++import org.kynosarges.tektosyne.geometry.GeoUtils;
+ import org.kynosarges.tektosyne.geometry.PointD;
++import org.kynosarges.tektosyne.geometry.PolygonLocation;
+ import org.kynosarges.tektosyne.geometry.RectD;
+ 
+ import java.util.HashSet;
+@@ -15,31 +17,33 @@
+     /**
+      * A simple and fast grid geometry
+      *
+-     * @param bounds      The region bounding the erosion
+-     * @param minDistance The minimum distance between two nodes, setting the resolution
++     * @param boundingPolygon The bounding coordinates of a polygonal region
++     * @param minDistance     The minimum distance between two nodes, setting the resolution
+      */
+-    public EroderGeometryGrid(RectD bounds, double minDistance) {
+-        super(bounds, minDistance + EPSILON);
++    public EroderGeometryGrid(PointD[] boundingPolygon, double minDistance) {
++        super(boundingPolygon, minDistance + EPSILON);
++        final RectD bounds = RectD.circumscribe(boundingPolygon);
+         minDistance = minDistance + EPSILON;
+         int horizontalCount = (int) (bounds.width() / minDistance);
+         int verticalCount = (int) (bounds.height() / minDistance);
+         double horizontalMargin = (bounds.width() - horizontalCount * minDistance) / 2;
+         double verticalMargin = (bounds.height() - verticalCount * minDistance) / 2;
+-        for (int x = 0; x <= horizontalCount; x++)
+-            for (int y = 0; y <= verticalCount; y++) {
+-                PointD node = new PointD(x * minDistance + horizontalMargin, y * minDistance + verticalMargin).add(bounds.min);
+-                graph.put(node, new HashSet<>(4));
+-                for (int dx = -1; dx <= 1; dx++)
+-                    for (int dy = -1; dy <= 1; dy++) {
+-                        if (dx == 0 && dy == 0) continue;
+-                        if (dx * dy != 0) continue;
+-                        PointD neighbor = new PointD((x + dx) * minDistance + horizontalMargin, (y + dy) * minDistance + verticalMargin).add(bounds.min);
+-                        if (!bounds.contains(neighbor)) continue;
+-                        graph.get(node).add(neighbor);
+-                    }
+-            }
++        for (int x = 0; x <= horizontalCount; x++) for (int y = 0; y <= verticalCount; y++) {
++            PointD node = new PointD(x * minDistance + horizontalMargin, y * minDistance + verticalMargin).add(bounds.min);
++            if (GeoUtils.pointInPolygon(node, boundingPolygon) == PolygonLocation.OUTSIDE) continue;
++            graph.putIfAbsent(node, new HashSet<>(4));
++            for (int dx = -1; dx <= 1; dx++) for (int dy = -1; dy <= 1; dy++) {
++                if (dx == 0 && dy == 0) continue;
++                if (dx * dy == 1) continue;
++                PointD neighbor = new PointD((x + dx) * minDistance + horizontalMargin, (y + dy) * minDistance + verticalMargin).add(bounds.min);
++                if (GeoUtils.pointInPolygon(neighbor, boundingPolygon) == PolygonLocation.OUTSIDE) continue;
++                graph.get(node).add(neighbor);
++                graph.putIfAbsent(neighbor, new HashSet<>(4));
++                graph.get(neighbor).add(node);
++            }
++        }
+ 
+-        for (PointD node : graph.keySet()) {
++        for (PointD node : this.graph.keySet()) {
+             areaMap.put(node, minDistance * minDistance);
+         }
+     }
+Index: src/main/java/com/github/keyboardcat1/erosio/interpolation/InterpolatorGaussianKernel.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.github.keyboardcat1.erosio.interpolation;\n\nimport com.github.keyboardcat1.erosio.EroderResults;\nimport org.kynosarges.tektosyne.geometry.PointD;\n\nimport java.util.Map;\nimport java.util.Set;\n\n/**\n * A class interpolating with gaussian kernels\n */\npublic class InterpolatorGaussianKernel extends Interpolator {\n    private static final double SQRT2PI = Math.sqrt(2*Math.PI);\n\n    public final double stddevInverseCoefficient;\n    public final double normalizedError;\n    private final double d_epsilon;\n\n    /**\n     * A class interpolating with gaussian kernels\n     *\n     * @param stddevInverseCoefficient gaussian distribution inverse standard deviation\n     * @param normalizedError error margin proportion (small)\n     * @param eroderResults The {@link EroderResults} to interpolate\n     */\n    public InterpolatorGaussianKernel(EroderResults eroderResults, double stddevInverseCoefficient, double normalizedError) {\n        super(eroderResults);\n        this.stddevInverseCoefficient = stddevInverseCoefficient;\n        this.normalizedError = normalizedError;\n\n        double total = 0;\n        int N = 0;\n        for (Map.Entry<PointD, Set<PointD>> entry : eroderResults.eroderGeometry.graph.entrySet()) {\n            for (PointD neighbor : entry.getValue()) {\n                N += 1;\n                total += entry.getKey().subtract(neighbor).length();\n            }\n        }\n        double average = total/N;\n\n        this.d_epsilon = average / stddevInverseCoefficient * Math.sqrt(2*Math.abs(Math.log(normalizedError)));\n    }\n\n    @Override\n    public double interpolate(PointD point) {\n        double numerator = 0.0D;\n        double denominator = 0.0D;\n        for (PointD node : getRange(point, d_epsilon)) {\n            double height = eroderResults.heightMap.get(node);\n            double distance = point.subtract(node).length();\n            double weight = normalDist(distance, 0, Math.pow((distance/stddevInverseCoefficient), 2));\n            numerator += height * weight;\n            denominator += weight;\n        }\n        return numerator / denominator;\n    }\n\n    private double normalDist(double x, double m, double v) {\n        return (1/(v*SQRT2PI)) * Math.exp(-Math.pow(x-m,2)/(2*v));\n    }\n}\n
+===================================================================
+diff --git a/src/main/java/com/github/keyboardcat1/erosio/interpolation/InterpolatorGaussianKernel.java b/src/main/java/com/github/keyboardcat1/erosio/interpolation/InterpolatorGaussianKernel.java
+--- a/src/main/java/com/github/keyboardcat1/erosio/interpolation/InterpolatorGaussianKernel.java	(revision a9af72292ef7285f6256c4a8e346691ed82bfd71)
++++ b/src/main/java/com/github/keyboardcat1/erosio/interpolation/InterpolatorGaussianKernel.java	(date 1731143922764)
+@@ -14,6 +14,7 @@
+ 
+     public final double stddevInverseCoefficient;
+     public final double normalizedError;
++
+     private final double d_epsilon;
+ 
+     /**

@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
  * @see <a href="https://inria.hal.science/hal-01262376/document">Large Scale Terrain Generation from Tectonic Uplift and
  * Fluvial Erosion</a> by Guillaume Cordonnier
  */
-public class Eroder {
+public final class Eroder {
 
     /**
      * Computes an eroded heightmap
@@ -26,9 +26,11 @@ public class Eroder {
     public static EroderResults erode(EroderSettings settings, EroderGeometry eroderGeometry) {
         Map<PointD, Double> heightMap = new HashMap<>(eroderGeometry.graph.size());
         Map<PointD, Double> upliftMap = new HashMap<>(eroderGeometry.graph.size());
+        Map<PointD, Double> erosionRateMap = new HashMap<>(eroderGeometry.graph.size());
         for (PointD point : eroderGeometry.graph.keySet()) {
             heightMap.put(point, settings.initialHeightLambda().apply(point));
             upliftMap.put(point, settings.upliftLambda().apply(point));
+            erosionRateMap.put(point, settings.erosionRateLambda().apply(point));
         }
 
         PointD[] convexHull = GeoUtils.convexHull(eroderGeometry.graph.keySet().toArray(new PointD[0]));
@@ -44,7 +46,7 @@ public class Eroder {
             drains.retainAll(potentialDrains);
             delakefyStreamGraph(streamGraph, eroderGeometry.graph, heightMap, drains);
             drainageMap = getDrainageMap(streamGraph, eroderGeometry.areaMap);
-            Map<PointD, Double> newHeightMap = computeNewHeightMap(heightMap, upliftMap, drainageMap, streamGraph, settings, eroderGeometry.minDistance);
+            Map<PointD, Double> newHeightMap = computeNewHeightMap(heightMap, upliftMap, drainageMap, erosionRateMap, streamGraph, settings, eroderGeometry.minDistance);
             converged = true;
             for (PointD point : newHeightMap.keySet())
                 if (Math.abs(newHeightMap.get(point) - heightMap.get(point)) > settings.convergenceThreshold()) {
@@ -55,7 +57,7 @@ public class Eroder {
         }
 
         assert streamGraph != null;
-        return new EroderResults(heightMap, getEroderEdges(streamGraph, drainageMap), eroderGeometry);
+        return new EroderResults(heightMap, getEroderEdges(streamGraph, drainageMap), eroderGeometry, converged);
     }
 
 
@@ -152,8 +154,8 @@ public class Eroder {
     }
 
     private static Map<PointD, Double> computeNewHeightMap(Map<PointD, Double> oldHeightMap, Map<PointD, Double> upliftMap,
-                                                           Map<PointD, Double> drainageMap, StreamGraph streamGraph,
-                                                           EroderSettings settings, double minDistance) {
+                                                           Map<PointD, Double> drainageMap, Map<PointD, Double> erosionRateMap,
+                                                           StreamGraph streamGraph, EroderSettings settings, double minDistance) {
         final Map<PointD, Double> out = new HashMap<>(streamGraph.size());
         Queue<Map.Entry<PointD, PointD>> downstreamQueue = new ArrayDeque<>(
                 streamGraph.roots.stream().collect(Collectors.toMap(k -> k, v -> PointD.EMPTY)).entrySet()
@@ -177,14 +179,14 @@ public class Eroder {
             double uplift = upliftMap.get(current);
             double drainageArea = drainageMap.get(current);
             double m = settings.mnRatio();
-            double k = settings.erosionRate();
+            double k = erosionRateMap.get(current);
             double dt = settings.timeStep();
 
             double erosionImportance = k * Math.pow(drainageArea, m) / distance;
             double newHeight = (oldHeight + dt * (uplift + erosionImportance * downstreamHeight)) / (1 + erosionImportance * dt);
             double slope = (newHeight - downstreamHeight) / distance;
             double maxSlope = Math.tan(Math.toRadians(settings.maxSlopeDegreesLambda().apply(current, newHeight)));
-            if (Math.abs(slope) > maxSlope) newHeight = distance * maxSlope;
+            if (Math.abs(slope) > maxSlope) newHeight = downstreamHeight + distance * maxSlope;
             out.put(current, newHeight);
 
             for (PointD neighbor : streamGraph.get(current))

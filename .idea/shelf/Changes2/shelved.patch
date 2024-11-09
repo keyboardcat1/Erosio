@@ -1,0 +1,317 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"77f92e6d-4ecb-422a-b86f-6c78dec6ec47\" name=\"Changes\" comment=\"Corrected kriging doc\" />\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"CodeInsightWorkspaceSettings\">\n    <option name=\"optimizeImportsOnTheFly\" value=\"true\" />\n  </component>\n  <component name=\"ExternalProjectsData\">\n    <projectState path=\"$PROJECT_DIR$\">\n      <ProjectState />\n    </projectState>\n  </component>\n  <component name=\"ExternalProjectsManager\">\n    <system id=\"GRADLE\">\n      <state>\n        <task path=\"$PROJECT_DIR$\">\n          <activation />\n        </task>\n        <projects_view>\n          <tree_state>\n            <expand>\n              <path>\n                <item name=\"\" type=\"6a2764b6:ExternalProjectsStructure$RootNode\" />\n                <item name=\"erosio\" type=\"f1a62948:ProjectNode\" />\n              </path>\n              <path>\n                <item name=\"\" type=\"6a2764b6:ExternalProjectsStructure$RootNode\" />\n                <item name=\"erosio\" type=\"f1a62948:ProjectNode\" />\n                <item name=\"Tasks\" type=\"e4a08cd1:TasksNode\" />\n              </path>\n              <path>\n                <item name=\"\" type=\"6a2764b6:ExternalProjectsStructure$RootNode\" />\n                <item name=\"erosio\" type=\"f1a62948:ProjectNode\" />\n                <item name=\"Tasks\" type=\"e4a08cd1:TasksNode\" />\n                <item name=\"build\" type=\"c8890929:TasksNode$1\" />\n              </path>\n              <path>\n                <item name=\"\" type=\"6a2764b6:ExternalProjectsStructure$RootNode\" />\n                <item name=\"erosio\" type=\"f1a62948:ProjectNode\" />\n                <item name=\"Tasks\" type=\"e4a08cd1:TasksNode\" />\n                <item name=\"build setup\" type=\"c8890929:TasksNode$1\" />\n              </path>\n              <path>\n                <item name=\"\" type=\"6a2764b6:ExternalProjectsStructure$RootNode\" />\n                <item name=\"erosio\" type=\"f1a62948:ProjectNode\" />\n                <item name=\"Tasks\" type=\"e4a08cd1:TasksNode\" />\n                <item name=\"documentation\" type=\"c8890929:TasksNode$1\" />\n              </path>\n              <path>\n                <item name=\"\" type=\"6a2764b6:ExternalProjectsStructure$RootNode\" />\n                <item name=\"erosio\" type=\"f1a62948:ProjectNode\" />\n                <item name=\"Run Configurations\" type=\"7b0102dc:RunConfigurationsNode\" />\n              </path>\n            </expand>\n            <select />\n          </tree_state>\n        </projects_view>\n      </state>\n    </system>\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"Record\" />\n        <option value=\"Class\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"Git.Merge.Settings\">\n    <option name=\"BRANCH\" value=\"main\" />\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\n      <map>\n        <entry key=\"$PROJECT_DIR$\" value=\"main\" />\n      </map>\n    </option>\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n    <option name=\"RESET_MODE\" value=\"SOFT\" />\n  </component>\n  <component name=\"GitHubPullRequestSearchHistory\">{\n  &quot;lastFilter&quot;: {\n    &quot;state&quot;: &quot;OPEN&quot;,\n    &quot;assignee&quot;: &quot;keyboardcat1&quot;\n  }\n}</component>\n  <component name=\"GithubPullRequestsUISettings\">\n    <option name=\"selectedUrlAndAccountId\">\n      <UrlAndAccount>\n        <option name=\"accountId\" value=\"913feb30-e60e-40a7-a5cb-ff786f8e186f\" />\n        <option name=\"url\" value=\"https://github.com/keyboardcat1/Erosio.git\" />\n      </UrlAndAccount>\n    </option>\n  </component>\n  <component name=\"HighlightingSettingsPerFile\">\n    <setting file=\"jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.kynosarges/tektosyne/6.2.0/4c513e669ae179106ceeac13bf7d95c562964084/tektosyne-6.2.0-sources.jar!/org/kynosarges/tektosyne/geometry/RectD.java\" root0=\"FORCE_HIGHLIGHTING\" />\n    <setting file=\"jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.kynosarges/tektosyne/6.2.0/4c513e669ae179106ceeac13bf7d95c562964084/tektosyne-6.2.0-sources.jar!/org/kynosarges/tektosyne/geometry/VoronoiResults.java\" root0=\"FORCE_HIGHLIGHTING\" />\n  </component>\n  <component name=\"MarkdownSettingsMigration\">\n    <option name=\"stateVersion\" value=\"1\" />\n  </component>\n  <component name=\"ProjectColorInfo\">{\n  &quot;associatedIndex&quot;: 1\n}</component>\n  <component name=\"ProjectId\" id=\"2YywpJaxGkVEoKLC9gkzvvyu7q8\" />\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\">{\n  &quot;keyToString&quot;: {\n    &quot;Gradle.Erosio [:Demo.main()].executor&quot;: &quot;Run&quot;,\n    &quot;Gradle.Erosio [init].executor&quot;: &quot;Run&quot;,\n    &quot;Gradle.Erosio [javadoc].executor&quot;: &quot;Run&quot;,\n    &quot;Gradle.rivers2 [:Demo.main()].executor&quot;: &quot;Run&quot;,\n    &quot;Gradle.rivers2 [javadocJar].executor&quot;: &quot;Run&quot;,\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\n    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\n    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,\n    &quot;onboarding.tips.debug.path&quot;: &quot;/home/keyboardcat/Documents/rivers2/src/main/java/org/example/Main.java&quot;,\n    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,\n    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,\n    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,\n    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;\n  }\n}</component>\n  <component name=\"RecentsManager\">\n    <key name=\"MoveFile.RECENT_KEYS\">\n      <recent name=\"$PROJECT_DIR$/images\" />\n      <recent name=\"$PROJECT_DIR$\" />\n    </key>\n    <key name=\"CopyClassDialog.RECENTS_KEY\">\n      <recent name=\"org.example\" />\n    </key>\n  </component>\n  <component name=\"RunManager\" selected=\"Gradle.Erosio [javadoc]\">\n    <configuration name=\"Demo\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\n      <option name=\"MAIN_CLASS_NAME\" value=\"Demo\" />\n      <module name=\"erosio.test\" />\n      <method v=\"2\">\n        <option name=\"Make\" enabled=\"true\" />\n      </method>\n    </configuration>\n    <configuration name=\"Erosio [init]\" type=\"GradleRunConfiguration\" factoryName=\"Gradle\" temporary=\"true\">\n      <ExternalSystemSettings>\n        <option name=\"executionName\" />\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\n        <option name=\"externalSystemIdString\" value=\"GRADLE\" />\n        <option name=\"scriptParameters\" />\n        <option name=\"taskDescriptions\">\n          <list />\n        </option>\n        <option name=\"taskNames\">\n          <list>\n            <option value=\"init\" />\n          </list>\n        </option>\n        <option name=\"vmOptions\" />\n      </ExternalSystemSettings>\n      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>\n      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>\n      <DebugAllEnabled>false</DebugAllEnabled>\n      <RunAsTest>false</RunAsTest>\n      <method v=\"2\" />\n    </configuration>\n    <configuration name=\"Erosio [javadoc]\" type=\"GradleRunConfiguration\" factoryName=\"Gradle\" temporary=\"true\">\n      <ExternalSystemSettings>\n        <option name=\"executionName\" />\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\n        <option name=\"externalSystemIdString\" value=\"GRADLE\" />\n        <option name=\"scriptParameters\" />\n        <option name=\"taskDescriptions\">\n          <list />\n        </option>\n        <option name=\"taskNames\">\n          <list>\n            <option value=\"javadoc\" />\n          </list>\n        </option>\n        <option name=\"vmOptions\" />\n      </ExternalSystemSettings>\n      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>\n      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>\n      <DebugAllEnabled>false</DebugAllEnabled>\n      <RunAsTest>false</RunAsTest>\n      <method v=\"2\" />\n    </configuration>\n    <configuration name=\"rivers2 [javadocJar]\" type=\"GradleRunConfiguration\" factoryName=\"Gradle\" temporary=\"true\">\n      <ExternalSystemSettings>\n        <option name=\"executionName\" />\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\n        <option name=\"externalSystemIdString\" value=\"GRADLE\" />\n        <option name=\"scriptParameters\" />\n        <option name=\"taskDescriptions\">\n          <list />\n        </option>\n        <option name=\"taskNames\">\n          <list>\n            <option value=\"javadocJar\" />\n          </list>\n        </option>\n        <option name=\"vmOptions\" />\n      </ExternalSystemSettings>\n      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>\n      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>\n      <DebugAllEnabled>false</DebugAllEnabled>\n      <RunAsTest>false</RunAsTest>\n      <method v=\"2\" />\n    </configuration>\n    <configuration name=\"rivers2 [publish]\" type=\"GradleRunConfiguration\" factoryName=\"Gradle\" temporary=\"true\">\n      <ExternalSystemSettings>\n        <option name=\"executionName\" />\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\n        <option name=\"externalSystemIdString\" value=\"GRADLE\" />\n        <option name=\"scriptParameters\" />\n        <option name=\"taskDescriptions\">\n          <list />\n        </option>\n        <option name=\"taskNames\">\n          <list>\n            <option value=\"publish\" />\n          </list>\n        </option>\n        <option name=\"vmOptions\" />\n      </ExternalSystemSettings>\n      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>\n      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>\n      <DebugAllEnabled>false</DebugAllEnabled>\n      <RunAsTest>false</RunAsTest>\n      <method v=\"2\" />\n    </configuration>\n    <recent_temporary>\n      <list>\n        <item itemvalue=\"Gradle.Erosio [javadoc]\" />\n        <item itemvalue=\"Application.Demo\" />\n        <item itemvalue=\"Gradle.Erosio [init]\" />\n        <item itemvalue=\"Gradle.rivers2 [javadocJar]\" />\n        <item itemvalue=\"Gradle.rivers2 [publish]\" />\n      </list>\n    </recent_temporary>\n  </component>\n  <component name=\"SharedIndexes\">\n    <attachedChunks>\n      <set>\n        <option value=\"jdk-17.0.9-corretto-17.0.9-249ae16d76d6-7c0527ad\" />\n      </set>\n    </attachedChunks>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"77f92e6d-4ecb-422a-b86f-6c78dec6ec47\" name=\"Changes\" comment=\"\" />\n      <created>1701511311965</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1701511311965</updated>\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"Version 1.0\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1701976517142</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1701976517142</updated>\n    </task>\n    <task id=\"LOCAL-00002\" summary=\"Corrected IDW formula&#10;Added graph traversal depth to IDW&#10;Replaced erosion coefficient lambda with constant&#10;Replaced max slope with a 3D lambda&#10;Updated README.md and IDW.png\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1702051193129</created>\n      <option name=\"number\" value=\"00002\" />\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1702051193129</updated>\n    </task>\n    <task id=\"LOCAL-00003\" summary=\"Max slope degrees to radians\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1702053409454</created>\n      <option name=\"number\" value=\"00003\" />\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1702053409454</updated>\n    </task>\n    <task id=\"LOCAL-00004\" summary=\"Updated Demo and IDW.png\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1702055554944</created>\n      <option name=\"number\" value=\"00004\" />\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1702055554944</updated>\n    </task>\n    <task id=\"LOCAL-00005\" summary=\"Configured gradle publish\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1702058038176</created>\n      <option name=\"number\" value=\"00005\" />\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1702058038176</updated>\n    </task>\n    <task id=\"LOCAL-00006\" summary=\"Updated Java version to 17 in build.gradle\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1702060007241</created>\n      <option name=\"number\" value=\"00006\" />\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1702060007241</updated>\n    </task>\n    <task id=\"LOCAL-00007\" summary=\"Updated workflow\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1702063822722</created>\n      <option name=\"number\" value=\"00007\" />\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1702063822722</updated>\n    </task>\n    <task id=\"LOCAL-00008\" summary=\"Updated build.gradle.kts to version 1.1\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1702119125913</created>\n      <option name=\"number\" value=\"00008\" />\n      <option name=\"presentableId\" value=\"LOCAL-00008\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1702119125913</updated>\n    </task>\n    <task id=\"LOCAL-00009\" summary=\"Added polygonal bounds&#10;&#10;Converted Eroder.Results to a non-final class&#10;Added minHeight and maxHeight to Eroder.Results&#10;Made StreamGraph public\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1702119244901</created>\n      <option name=\"number\" value=\"00009\" />\n      <option name=\"presentableId\" value=\"LOCAL-00009\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1702119244901</updated>\n    </task>\n    <task id=\"LOCAL-00010\" summary=\"Improved IDW&#10;&#10;Filtering closest samples based on radius\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1702243125702</created>\n      <option name=\"number\" value=\"00010\" />\n      <option name=\"presentableId\" value=\"LOCAL-00010\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1702243125704</updated>\n    </task>\n    <task id=\"LOCAL-00011\" summary=\"Further optimized core algorithm&#10;&#10;Running faster than paper\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1702726237457</created>\n      <option name=\"number\" value=\"00011\" />\n      <option name=\"presentableId\" value=\"LOCAL-00011\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1702726237457</updated>\n    </task>\n    <task id=\"LOCAL-00012\" summary=\"Added Kriging interpolation&#10;&#10;3 models: Exponential, Spherical and Gaussian\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1702737180397</created>\n      <option name=\"number\" value=\"00012\" />\n      <option name=\"presentableId\" value=\"LOCAL-00012\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1702737180397</updated>\n    </task>\n    <task id=\"LOCAL-00013\" summary=\"Added grid geometry&#10;&#10;Modified EroderEdge to include destination volume\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1702747186412</created>\n      <option name=\"number\" value=\"00013\" />\n      <option name=\"presentableId\" value=\"LOCAL-00013\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1702747186412</updated>\n    </task>\n    <task id=\"LOCAL-00014\" summary=\"Corrected kriging doc\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1702755492299</created>\n      <option name=\"number\" value=\"00014\" />\n      <option name=\"presentableId\" value=\"LOCAL-00014\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1702755492299</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"15\" />\n    <servers />\n  </component>\n  <component name=\"Vcs.Log.History.Properties\">\n    <option name=\"COLUMN_ID_ORDER\">\n      <list>\n        <option value=\"Default.Root\" />\n        <option value=\"Default.Author\" />\n        <option value=\"Default.Date\" />\n        <option value=\"Default.Subject\" />\n        <option value=\"Space.CommitStatus\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"Vcs.Log.Tabs.Properties\">\n    <option name=\"RECENT_FILTERS\">\n      <map>\n        <entry key=\"Branch\">\n          <value>\n            <list>\n              <RecentGroup>\n                <option name=\"FILTER_VALUES\">\n                  <option value=\"main\" />\n                </option>\n              </RecentGroup>\n            </list>\n          </value>\n        </entry>\n      </map>\n    </option>\n    <option name=\"TAB_STATES\">\n      <map>\n        <entry key=\"MAIN\">\n          <value>\n            <State>\n              <option name=\"CUSTOM_BOOLEAN_PROPERTIES\">\n                <map>\n                  <entry key=\"Show.Git.Branches\" value=\"false\" />\n                </map>\n              </option>\n              <option name=\"FILTERS\">\n                <map>\n                  <entry key=\"branch\">\n                    <value>\n                      <list>\n                        <option value=\"main\" />\n                      </list>\n                    </value>\n                  </entry>\n                </map>\n              </option>\n            </State>\n          </value>\n        </entry>\n      </map>\n    </option>\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <MESSAGE value=\"Version 1.0\" />\n    <MESSAGE value=\"Corrected IDW formula&#10;Added graph traversal depth to IDW&#10;Replaced erosion coefficient lambda with constant&#10;Replaced max slope with a 3D lambda&#10;Updated README.md and IDW.png\" />\n    <MESSAGE value=\"Max slope degrees to radians\" />\n    <MESSAGE value=\"Updated Demo and IDW.png\" />\n    <MESSAGE value=\"Configured gradle publish\" />\n    <MESSAGE value=\"Updated Java version to 17 in build.gradle\" />\n    <MESSAGE value=\"Updated workflow\" />\n    <MESSAGE value=\"Updated build.gradle.kts to version 1.1\" />\n    <MESSAGE value=\"Added polygonal bounds&#10;&#10;Converted Eroder.Results to a non-final class&#10;Added minHeight and maxHeight to Eroder.Results&#10;Made StreamGraph public\" />\n    <MESSAGE value=\"Improved IDW&#10;&#10;Filtering closest samples based on radius\" />\n    <MESSAGE value=\"Further optimized core algorithm&#10;&#10;Running faster than paper\" />\n    <MESSAGE value=\"Added Kriging interpolation&#10;&#10;3 models: Exponential, Spherical and Gaussian\" />\n    <MESSAGE value=\"Added grid geometry&#10;&#10;Modified EroderEdge to include destination volume\" />\n    <MESSAGE value=\"Updated version to 2.0\" />\n    <MESSAGE value=\"Corrected kriging doc\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Corrected kriging doc\" />\n  </component>\n  <component name=\"XDebuggerManager\">\n    <breakpoint-manager>\n      <breakpoints>\n        <breakpoint enabled=\"true\" type=\"java-exception\">\n          <properties class=\"java.util.ConcurrentModificationException\" package=\"java.util\" />\n          <option name=\"timeStamp\" value=\"1\" />\n        </breakpoint>\n      </breakpoints>\n    </breakpoint-manager>\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 77b96d0ee0699c7ea9e2a0768853bca65ba90d4a)
++++ b/.idea/workspace.xml	(date 1728932443492)
+@@ -4,7 +4,10 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="77f92e6d-4ecb-422a-b86f-6c78dec6ec47" name="Changes" comment="Corrected kriging doc" />
++    <list default="true" id="77f92e6d-4ecb-422a-b86f-6c78dec6ec47" name="Changes" comment="Set version to 2.1&#10;added doc to gaussian kernel interpolation">
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/test/java/Demo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Demo.java" afterDir="false" />
++    </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -42,23 +45,6 @@
+                 <item name="Tasks" type="e4a08cd1:TasksNode" />
+                 <item name="build" type="c8890929:TasksNode$1" />
+               </path>
+-              <path>
+-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+-                <item name="erosio" type="f1a62948:ProjectNode" />
+-                <item name="Tasks" type="e4a08cd1:TasksNode" />
+-                <item name="build setup" type="c8890929:TasksNode$1" />
+-              </path>
+-              <path>
+-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+-                <item name="erosio" type="f1a62948:ProjectNode" />
+-                <item name="Tasks" type="e4a08cd1:TasksNode" />
+-                <item name="documentation" type="c8890929:TasksNode$1" />
+-              </path>
+-              <path>
+-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+-                <item name="erosio" type="f1a62948:ProjectNode" />
+-                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
+-              </path>
+             </expand>
+             <select />
+           </tree_state>
+@@ -92,14 +78,12 @@
+     &quot;assignee&quot;: &quot;keyboardcat1&quot;
+   }
+ }</component>
+-  <component name="GithubPullRequestsUISettings">
+-    <option name="selectedUrlAndAccountId">
+-      <UrlAndAccount>
+-        <option name="accountId" value="913feb30-e60e-40a7-a5cb-ff786f8e186f" />
+-        <option name="url" value="https://github.com/keyboardcat1/Erosio.git" />
+-      </UrlAndAccount>
+-    </option>
+-  </component>
++  <component name="GithubPullRequestsUISettings">{
++  &quot;selectedUrlAndAccountId&quot;: {
++    &quot;url&quot;: &quot;https://github.com/keyboardcat1/Erosio.git&quot;,
++    &quot;accountId&quot;: &quot;913feb30-e60e-40a7-a5cb-ff786f8e186f&quot;
++  }
++}</component>
+   <component name="HighlightingSettingsPerFile">
+     <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.kynosarges/tektosyne/6.2.0/4c513e669ae179106ceeac13bf7d95c562964084/tektosyne-6.2.0-sources.jar!/org/kynosarges/tektosyne/geometry/RectD.java" root0="FORCE_HIGHLIGHTING" />
+     <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.kynosarges/tektosyne/6.2.0/4c513e669ae179106ceeac13bf7d95c562964084/tektosyne-6.2.0-sources.jar!/org/kynosarges/tektosyne/geometry/VoronoiResults.java" root0="FORCE_HIGHLIGHTING" />
+@@ -116,34 +100,45 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent">{
+-  &quot;keyToString&quot;: {
+-    &quot;Gradle.Erosio [:Demo.main()].executor&quot;: &quot;Run&quot;,
+-    &quot;Gradle.Erosio [init].executor&quot;: &quot;Run&quot;,
+-    &quot;Gradle.Erosio [javadoc].executor&quot;: &quot;Run&quot;,
+-    &quot;Gradle.rivers2 [:Demo.main()].executor&quot;: &quot;Run&quot;,
+-    &quot;Gradle.rivers2 [javadocJar].executor&quot;: &quot;Run&quot;,
+-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+-    &quot;onboarding.tips.debug.path&quot;: &quot;/home/keyboardcat/Documents/rivers2/src/main/java/org/example/Main.java&quot;,
+-    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
+-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
++  <component name="PropertiesComponent"><![CDATA[{
++  "keyToString": {
++    "Application.Demo.executor": "Run with VisualVM",
++    "Application.com.github.keyboardcat1.erosio.Demo.executor": "Run with VisualVM",
++    "Gradle.Build Erosio.executor": "Run",
++    "Gradle.Download Sources.executor": "Run",
++    "Gradle.Erosio [:Demo.main()].executor": "Run",
++    "Gradle.Erosio [:com.github.keyboardcat1.erosio.Demo.main()].executor": "Run",
++    "Gradle.Erosio [build].executor": "Run",
++    "Gradle.Erosio [init].executor": "Run",
++    "Gradle.Erosio [jar].executor": "Run",
++    "Gradle.Erosio [javadoc].executor": "Run",
++    "Gradle.Erosio [testClasses].executor": "Run",
++    "Gradle.rivers2 [:Demo.main()].executor": "Run",
++    "Gradle.rivers2 [javadocJar].executor": "Run",
++    "RunOnceActivity.OpenProjectViewOnStart": "true",
++    "RunOnceActivity.ShowReadmeOnStart": "true",
++    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
++    "git-widget-placeholder": "dev",
++    "kotlin-language-version-configured": "true",
++    "last_opened_file_path": "/home/keyboardcat/Documents/ReTerraForged-Test",
++    "onboarding.tips.debug.path": "/home/keyboardcat/Documents/rivers2/src/main/java/org/example/Main.java",
++    "project.structure.last.edited": "SDKs",
++    "project.structure.proportion": "0.15",
++    "project.structure.side.proportion": "0.2",
++    "settings.editor.selected.configurable": "preferences.pluginManager"
+   }
+-}</component>
++}]]></component>
+   <component name="RecentsManager">
+     <key name="MoveFile.RECENT_KEYS">
+       <recent name="$PROJECT_DIR$/images" />
+       <recent name="$PROJECT_DIR$" />
+     </key>
+     <key name="CopyClassDialog.RECENTS_KEY">
++      <recent name="com.github.keyboardcat1.erosio" />
+       <recent name="org.example" />
+     </key>
+   </component>
+-  <component name="RunManager" selected="Gradle.Erosio [javadoc]">
++  <component name="RunManager" selected="Application.com.github.keyboardcat1.erosio.Demo">
+     <configuration name="Demo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+       <option name="MAIN_CLASS_NAME" value="Demo" />
+       <module name="erosio.test" />
+@@ -151,29 +146,20 @@
+         <option name="Make" enabled="true" />
+       </method>
+     </configuration>
+-    <configuration name="Erosio [init]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+-      <ExternalSystemSettings>
+-        <option name="executionName" />
+-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+-        <option name="externalSystemIdString" value="GRADLE" />
+-        <option name="scriptParameters" />
+-        <option name="taskDescriptions">
+-          <list />
+-        </option>
+-        <option name="taskNames">
+-          <list>
+-            <option value="init" />
+-          </list>
+-        </option>
+-        <option name="vmOptions" />
+-      </ExternalSystemSettings>
+-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+-      <DebugAllEnabled>false</DebugAllEnabled>
+-      <RunAsTest>false</RunAsTest>
+-      <method v="2" />
++    <configuration name="com.github.keyboardcat1.erosio.Demo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
++      <option name="MAIN_CLASS_NAME" value="com.github.keyboardcat1.erosio.Demo" />
++      <module name="erosio.main" />
++      <extension name="coverage">
++        <pattern>
++          <option name="PATTERN" value="com.github.keyboardcat1.erosio.*" />
++          <option name="ENABLED" value="true" />
++        </pattern>
++      </extension>
++      <method v="2">
++        <option name="Make" enabled="true" />
++      </method>
+     </configuration>
+-    <configuration name="Erosio [javadoc]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
++    <configuration name="Erosio [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+       <ExternalSystemSettings>
+         <option name="executionName" />
+         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+@@ -184,7 +170,7 @@
+         </option>
+         <option name="taskNames">
+           <list>
+-            <option value="javadoc" />
++            <option value="build" />
+           </list>
+         </option>
+         <option name="vmOptions" />
+@@ -195,7 +181,7 @@
+       <RunAsTest>false</RunAsTest>
+       <method v="2" />
+     </configuration>
+-    <configuration name="rivers2 [javadocJar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
++    <configuration name="Erosio [jar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+       <ExternalSystemSettings>
+         <option name="executionName" />
+         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+@@ -206,7 +192,7 @@
+         </option>
+         <option name="taskNames">
+           <list>
+-            <option value="javadocJar" />
++            <option value="jar" />
+           </list>
+         </option>
+         <option name="vmOptions" />
+@@ -217,7 +203,7 @@
+       <RunAsTest>false</RunAsTest>
+       <method v="2" />
+     </configuration>
+-    <configuration name="rivers2 [publish]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
++    <configuration name="Erosio [testClasses]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+       <ExternalSystemSettings>
+         <option name="executionName" />
+         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+@@ -228,7 +214,7 @@
+         </option>
+         <option name="taskNames">
+           <list>
+-            <option value="publish" />
++            <option value="testClasses" />
+           </list>
+         </option>
+         <option name="vmOptions" />
+@@ -241,21 +227,14 @@
+     </configuration>
+     <recent_temporary>
+       <list>
+-        <item itemvalue="Gradle.Erosio [javadoc]" />
++        <item itemvalue="Application.com.github.keyboardcat1.erosio.Demo" />
++        <item itemvalue="Gradle.Erosio [jar]" />
++        <item itemvalue="Gradle.Erosio [build]" />
++        <item itemvalue="Gradle.Erosio [testClasses]" />
+         <item itemvalue="Application.Demo" />
+-        <item itemvalue="Gradle.Erosio [init]" />
+-        <item itemvalue="Gradle.rivers2 [javadocJar]" />
+-        <item itemvalue="Gradle.rivers2 [publish]" />
+       </list>
+     </recent_temporary>
+   </component>
+-  <component name="SharedIndexes">
+-    <attachedChunks>
+-      <set>
+-        <option value="jdk-17.0.9-corretto-17.0.9-249ae16d76d6-7c0527ad" />
+-      </set>
+-    </attachedChunks>
+-  </component>
+   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+   <component name="TaskManager">
+     <task active="true" id="Default" summary="Default task">
+@@ -377,7 +356,47 @@
+       <option name="project" value="LOCAL" />
+       <updated>1702755492299</updated>
+     </task>
+-    <option name="localTasksCounter" value="15" />
++    <task id="LOCAL-00015" summary="Fixed convergence detection">
++      <option name="closed" value="true" />
++      <created>1728537832002</created>
++      <option name="number" value="00015" />
++      <option name="presentableId" value="LOCAL-00015" />
++      <option name="project" value="LOCAL" />
++      <updated>1728537832002</updated>
++    </task>
++    <task id="LOCAL-00016" summary="Added Gaussian kernel interpolation">
++      <option name="closed" value="true" />
++      <created>1728617101450</created>
++      <option name="number" value="00016" />
++      <option name="presentableId" value="LOCAL-00016" />
++      <option name="project" value="LOCAL" />
++      <updated>1728617101450</updated>
++    </task>
++    <task id="LOCAL-00017" summary="Interpolation clean up">
++      <option name="closed" value="true" />
++      <created>1728761296126</created>
++      <option name="number" value="00017" />
++      <option name="presentableId" value="LOCAL-00017" />
++      <option name="project" value="LOCAL" />
++      <updated>1728761296126</updated>
++    </task>
++    <task id="LOCAL-00018" summary="Set version to 2.1">
++      <option name="closed" value="true" />
++      <created>1728761369018</created>
++      <option name="number" value="00018" />
++      <option name="presentableId" value="LOCAL-00018" />
++      <option name="project" value="LOCAL" />
++      <updated>1728761369018</updated>
++    </task>
++    <task id="LOCAL-00019" summary="Set version to 2.1&#10;added doc to gaussian kernel interpolation">
++      <option name="closed" value="true" />
++      <created>1728761780962</created>
++      <option name="number" value="00019" />
++      <option name="presentableId" value="LOCAL-00019" />
++      <option name="project" value="LOCAL" />
++      <updated>1728761780962</updated>
++    </task>
++    <option name="localTasksCounter" value="20" />
+     <servers />
+   </component>
+   <component name="Vcs.Log.History.Properties">
+@@ -450,7 +469,12 @@
+     <MESSAGE value="Added grid geometry&#10;&#10;Modified EroderEdge to include destination volume" />
+     <MESSAGE value="Updated version to 2.0" />
+     <MESSAGE value="Corrected kriging doc" />
+-    <option name="LAST_COMMIT_MESSAGE" value="Corrected kriging doc" />
++    <MESSAGE value="Fixed convergence detection" />
++    <MESSAGE value="Added Gaussian kernel interpolation" />
++    <MESSAGE value="Interpolation clean up" />
++    <MESSAGE value="Set version to 2.1" />
++    <MESSAGE value="Set version to 2.1&#10;added doc to gaussian kernel interpolation" />
++    <option name="LAST_COMMIT_MESSAGE" value="Set version to 2.1&#10;added doc to gaussian kernel interpolation" />
+   </component>
+   <component name="XDebuggerManager">
+     <breakpoint-manager>
+@@ -462,4 +486,7 @@
+       </breakpoints>
+     </breakpoint-manager>
+   </component>
++  <component name="com.intellij.coverage.CoverageDataManagerImpl">
++    <SUITE FILE_PATH="coverage/erosio$Demo.ic" NAME="Demo Coverage Results" MODIFIED="1728815094605" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
++  </component>
+ </project>
+\ No newline at end of file

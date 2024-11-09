@@ -23,14 +23,14 @@ RectI bounds = new RectI(-256, -256, 256, 256);
 
 EroderSettings settings = new EroderSettings(
         /*Uplift*/ p -> 1.0, /*Initial height*/ p -> 0.0,
-        /*Erosion rate*/ 2.0, /*m:n ratio*/ 0.5,
+        /*Erosion rate*/ p -> 2.0, /*m:n ratio*/ 0.5,
         /*Max slope*/ (p, h) -> 30.0,
         /*Time step*/ 1, /*Max iterations*/ 10, /*Convergence threshold*/ 1E-2
 );
 
 // Generate geometry input (reusable)
 EroderGeometry eroderGeometry = new EroderGeometryNatural(
-        bounds.toRectD(), /*Inverse sample density*/ 2, /*Seed*/ 2
+        EroderGeometry.RectDtoPolygon(bounds.toRectD()), /*Inverse sample density*/ 2, /*Seed*/ 2
 );
 
 // Erode
@@ -59,7 +59,7 @@ Erosio is available via GitHub Packages. Learn more about it
 #### Gradle
 ```groovy
 dependencies {
-    implementation 'com.github.keyboardcat1:erosio:2.1'
+    implementation 'com.github.keyboardcat1:erosio:2.2'
 }
 ```
 
@@ -68,7 +68,7 @@ dependencies {
 <dependency>
   <groupId>com.github.keyboardcat1</groupId>
   <artifactId>erosio</artifactId>
-  <version>2.1</version>
+  <version>2.2</version>
 </dependency>
 ```
 

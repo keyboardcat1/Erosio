@@ -30,11 +30,16 @@ public class EroderResults {
      * The {@link EroderGeometry} passed as input
      */
     public final EroderGeometry eroderGeometry;
+    /**
+     * Whether the erosion converged according to the convergence threshold
+     */
+    public final boolean converged;
 
-    EroderResults(Map<PointD, Double> heightMap, Set<EroderEdge> eroderEdges, EroderGeometry eroderGeometry) {
+    EroderResults(Map<PointD, Double> heightMap, Set<EroderEdge> eroderEdges, EroderGeometry eroderGeometry, boolean converged) {
         this.heightMap = heightMap;
         this.eroderEdges = eroderEdges;
         this.eroderGeometry = eroderGeometry;
+        this.converged = converged;
 
         Optional<Double> max = heightMap.values().stream().max(Double::compareTo);
         assert max.isPresent();
