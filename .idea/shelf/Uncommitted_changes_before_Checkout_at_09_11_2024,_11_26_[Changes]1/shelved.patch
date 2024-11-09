@@ -1,0 +1,76 @@
+Index: src/main/java/com/github/keyboardcat1/erosio/geometries/EroderGeometryNatural.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.github.keyboardcat1.erosio.geometries;\n\nimport com.github.keyboardcat1.erosio.EroderGeometry;\nimport org.kynosarges.tektosyne.geometry.*;\nimport org.kynosarges.tektosyne.subdivision.Subdivision;\nimport org.kynosarges.tektosyne.subdivision.SubdivisionEdge;\n\nimport java.util.*;\n\n/**\n * A natural-looking geometry based on Poisson disk sampling and Delaunay triangulation\n */\npublic class EroderGeometryNatural extends EroderGeometry {\n    /**\n     * The bounding coordinates of a polygonal region\n     */\n    public final PointD[] boundingPolygon;\n\n    /**\n     * The minimum distance between two nodes in the stream graph\n     */\n    public final double inverseSampleDensity;\n    /**\n     * The seed randomizing the sample points\n     */\n    public final long seed;\n\n    /**\n     * A natural-looking geometry based on Poisson disk sampling and Delaunay triangulation\n     *\n     * @param bounds               The bounding coordinates of a rectangular region\n     * @param inverseSampleDensity The minimum distance between two nodes in the stream graph\n     * @param seed                 A seed randomizing the sample points\n     */\n    public EroderGeometryNatural(RectD bounds, double inverseSampleDensity, long seed) {\n        this(new PointD[]{\n                bounds.min, bounds.min.add(new PointD(bounds.width(), 0)),\n                bounds.max, bounds.max.subtract(new PointD(bounds.width(), 0)),\n        }, inverseSampleDensity, seed);\n    }\n\n    /**\n     * @param boundingPolygon      The bounding coordinates of a polygonal region\n     * @param inverseSampleDensity The minimum distance between two nodes in the stream graph\n     * @param seed                 A seed randomizing the sample points\n     */\n    public EroderGeometryNatural(PointD[] boundingPolygon, double inverseSampleDensity, long seed) {\n        super(RectD.circumscribe(boundingPolygon), inverseSampleDensity);\n        this.boundingPolygon = boundingPolygon;\n        this.inverseSampleDensity = inverseSampleDensity;\n        this.seed = seed;\n\n        RectD bounds = RectD.circumscribe(boundingPolygon);\n        PointD[] points = PoissonDiskSampler.sample(bounds, inverseSampleDensity, seed)\n                .stream().filter(p -> GeoUtils.pointInPolygon(p, boundingPolygon) != PolygonLocation.OUTSIDE)\n                .toList().toArray(new PointD[0]);\n\n        VoronoiResults voronoiResults = Voronoi.findAll(points, bounds);\n        Subdivision delaunaySubdivision = voronoiResults.toDelaunaySubdivision(true);\n\n        for (SubdivisionEdge edge : delaunaySubdivision.edges().values()) {\n            PointD A = edge.origin();\n            PointD B = edge.destination();\n            graph.putIfAbsent(A, new HashSet<>());\n            graph.get(A).add(B);\n            graph.putIfAbsent(B, new HashSet<>());\n            graph.get(B).add(A);\n        }\n\n        for (int i = 0; i < voronoiResults.generatorSites.length; i++)\n            areaMap.put(voronoiResults.generatorSites[i], Math.abs(GeoUtils.polygonArea(voronoiResults.voronoiRegions()[i])));\n\n    }\n\n    private static class PoissonDiskSampler {\n        public static Set<PointD> sample(RectD bounds, double r, long seed) {\n            return sample(bounds, r, 30, seed);\n\n        }\n\n        public static Set<PointD> sample(RectD bounds, double r, int k, long seed) {\n            Random random = new Random(seed);\n            double width = bounds.width();\n            double height = bounds.height();\n            double cellSize = r / Math.sqrt(2);\n            int rows = (int) Math.ceil(width / cellSize);\n            int cols = (int) Math.ceil(height / cellSize);\n            RectI gridBounds = new RectI(0, 0, cols - 1, rows - 1);\n\n            List<List<PointD>> grid = new ArrayList<>();\n            for (int i = 0; i < cols; i++) {\n                grid.add(new ArrayList<>());\n                for (int j = 0; j < rows; j++) {\n                    grid.get(i).add(null);\n                }\n            }\n\n            List<PointD> active = new ArrayList<>();\n            PointD x_0 = new PointD(random.nextDouble(bounds.min.x, bounds.max.x), random.nextDouble(bounds.min.y, bounds.max.y));\n            grid.get(toGrid(x_0, bounds, cellSize).x).set(toGrid(x_0, bounds, cellSize).y, x_0);\n            active.add(x_0);\n\n            while (!active.isEmpty()) {\n                int randomIndex = random.nextInt(active.size());\n                PointD x_i = active.get(randomIndex);\n                boolean found = false;\n                for (int n = 0; n < k; n++) {\n                    PointD sample = samplePointAround(x_i, bounds, r, random);\n                    if (grid.get(toGrid(sample, bounds, cellSize).x).get(toGrid(sample, bounds, cellSize).y) != null)\n                        continue;\n                    if (hasNeighbours(sample, grid, r, bounds, gridBounds, cellSize)) continue;\n                    found = true;\n                    grid.get(toGrid(sample, bounds, cellSize).x).set(toGrid(sample, bounds, cellSize).y, sample);\n                    active.add(sample);\n                }\n                if (!found) active.remove(randomIndex);\n            }\n\n            Set<PointD> points = new HashSet<>();\n            for (int i = 0; i < cols; i++)\n                for (int j = 0; j < rows; j++)\n                    if (grid.get(i).get(j) != null)\n                        points.add(grid.get(i).get(j));\n\n            return points;\n        }\n\n        private static PointI toGrid(PointD point, RectD bounds, double cellSize) {\n            PointD fromMin = point.subtract(bounds.min);\n            return new PointI((int) (Math.floor(fromMin.x / cellSize)), (int) (Math.floor(fromMin.y / cellSize)));\n        }\n\n        private static PointD samplePointAround(PointD point, RectD bounds, double r, Random random) {\n            PointD sample;\n            do {\n                double randomAngle = random.nextDouble(2 * Math.PI);\n                double randomRadius = random.nextDouble(r, 2 * r);\n                double offsX = (Math.cos(randomAngle) * randomRadius);\n                double offsY = (Math.sin(randomAngle) * randomRadius);\n                sample = point.add(new PointD(offsX, offsY));\n            } while (!bounds.contains(sample));\n            return sample;\n        }\n\n        private static boolean hasNeighbours(PointD point, List<List<PointD>> grid, double r, RectD bounds, RectI gridBounds, double cellSize) {\n            for (int x = -1; x <= 1; x++) {\n                for (int y = -1; y <= 1; y++) {\n                    if (x == 0 && y == 0) continue;\n                    PointI gridPoint = new PointI(x, y).add(toGrid(point, bounds, cellSize));\n                    if (!gridBounds.contains(gridPoint)) continue;\n                    PointD neighbour = grid.get(gridPoint.x).get(gridPoint.y);\n                    if (neighbour == null) continue;\n                    if (neighbour.subtract(point).length() < r) {\n                        return true;\n                    }\n                }\n            }\n            return false;\n        }\n    }\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/github/keyboardcat1/erosio/geometries/EroderGeometryNatural.java b/src/main/java/com/github/keyboardcat1/erosio/geometries/EroderGeometryNatural.java
+--- a/src/main/java/com/github/keyboardcat1/erosio/geometries/EroderGeometryNatural.java	(revision a9af72292ef7285f6256c4a8e346691ed82bfd71)
++++ b/src/main/java/com/github/keyboardcat1/erosio/geometries/EroderGeometryNatural.java	(date 1731145662812)
+@@ -11,11 +11,6 @@
+  * A natural-looking geometry based on Poisson disk sampling and Delaunay triangulation
+  */
+ public class EroderGeometryNatural extends EroderGeometry {
+-    /**
+-     * The bounding coordinates of a polygonal region
+-     */
+-    public final PointD[] boundingPolygon;
+-
+     /**
+      * The minimum distance between two nodes in the stream graph
+      */
+@@ -28,25 +23,12 @@
+     /**
+      * A natural-looking geometry based on Poisson disk sampling and Delaunay triangulation
+      *
+-     * @param bounds               The bounding coordinates of a rectangular region
+-     * @param inverseSampleDensity The minimum distance between two nodes in the stream graph
+-     * @param seed                 A seed randomizing the sample points
+-     */
+-    public EroderGeometryNatural(RectD bounds, double inverseSampleDensity, long seed) {
+-        this(new PointD[]{
+-                bounds.min, bounds.min.add(new PointD(bounds.width(), 0)),
+-                bounds.max, bounds.max.subtract(new PointD(bounds.width(), 0)),
+-        }, inverseSampleDensity, seed);
+-    }
+-
+-    /**
+      * @param boundingPolygon      The bounding coordinates of a polygonal region
+      * @param inverseSampleDensity The minimum distance between two nodes in the stream graph
+      * @param seed                 A seed randomizing the sample points
+      */
+     public EroderGeometryNatural(PointD[] boundingPolygon, double inverseSampleDensity, long seed) {
+-        super(RectD.circumscribe(boundingPolygon), inverseSampleDensity);
+-        this.boundingPolygon = boundingPolygon;
++        super(boundingPolygon, inverseSampleDensity);
+         this.inverseSampleDensity = inverseSampleDensity;
+         this.seed = seed;
+ 
+Index: src/main/java/com/github/keyboardcat1/erosio/interpolation/Interpolator.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.github.keyboardcat1.erosio.interpolation;\n\nimport com.github.keyboardcat1.erosio.EroderResults;\nimport org.kynosarges.tektosyne.QuadTree;\nimport org.kynosarges.tektosyne.geometry.GeoUtils;\nimport org.kynosarges.tektosyne.geometry.PointD;\n\nimport java.util.List;\nimport java.util.Map;\nimport java.util.Set;\n\n/**\n * The base interpolation class\n */\npublic abstract class Interpolator {\n    /**\n     * The {@link EroderResults} to interpolate\n     */\n    public EroderResults eroderResults;\n\n    private final QuadTree<Double> quadTree;\n\n    /**\n     * The base interpolation class\n     *\n     * @param eroderResults The {@link EroderResults} to interpolate\n     */\n    public Interpolator(EroderResults eroderResults) {\n        this.quadTree = new QuadTree<>(eroderResults.eroderGeometry.bounds, eroderResults.heightMap);\n        this.eroderResults = eroderResults;\n    }\n\n    /**\n     * Interpolates the height of a point\n     *\n     * @param x The X coordinate of the point\n     * @param y The Y coordinate of that point\n     * @return The interpolated height at the point\n     */\n    public double interpolate(double x, double y) {\n        return interpolate(new PointD(x, y));\n    }\n\n    /**\n     * Interpolates the height of a point by nearest neighbor\n     *\n     * @param point The point to interpolate at\n     * @return The interpolated height at the point\n     */\n    public abstract double interpolate(PointD point);\n\n\n\n    /**\n     * Finds all sample points lying within a radius\n     *\n     * @param point  a {@link PointD} indicating the center of the search radius\n     * @param radius the radius to search\n     * @return a {@link Map} containing all {@link PointD} lying within the radius\n     */\n    protected final Set<PointD> getRange(PointD point, double radius) {\n        return quadTree.findRange(point, radius).keySet();\n    }\n\n    /**\n     *  Finds closest sample point to a given point\n     *\n     * @param point a {@link PointD} indicating the center of the search radius\n     * @return the closest sample point to the given point\n     */\n    protected final PointD getClosest(PointD point) {\n        List<PointD> neighbors = getRange(point, eroderResults.eroderGeometry.minDistance*1.5).stream().toList();\n        return neighbors.get(GeoUtils.nearestPoint(neighbors, point));\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/github/keyboardcat1/erosio/interpolation/Interpolator.java b/src/main/java/com/github/keyboardcat1/erosio/interpolation/Interpolator.java
+--- a/src/main/java/com/github/keyboardcat1/erosio/interpolation/Interpolator.java	(revision a9af72292ef7285f6256c4a8e346691ed82bfd71)
++++ b/src/main/java/com/github/keyboardcat1/erosio/interpolation/Interpolator.java	(date 1731147480091)
+@@ -4,6 +4,7 @@
+ import org.kynosarges.tektosyne.QuadTree;
+ import org.kynosarges.tektosyne.geometry.GeoUtils;
+ import org.kynosarges.tektosyne.geometry.PointD;
++import org.kynosarges.tektosyne.geometry.RectD;
+ 
+ import java.util.List;
+ import java.util.Map;
+@@ -26,7 +27,7 @@
+      * @param eroderResults The {@link EroderResults} to interpolate
+      */
+     public Interpolator(EroderResults eroderResults) {
+-        this.quadTree = new QuadTree<>(eroderResults.eroderGeometry.bounds, eroderResults.heightMap);
++        this.quadTree = new QuadTree<>(RectD.circumscribe(eroderResults.eroderGeometry.boundingPolygon), eroderResults.heightMap);
+         this.eroderResults = eroderResults;
+     }
+ 

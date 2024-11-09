@@ -14,6 +14,7 @@ public class InterpolatorGaussianKernel extends Interpolator {
 
     public final double stddevInverseCoefficient;
     public final double normalizedError;
+
     private final double d_epsilon;
 
     /**

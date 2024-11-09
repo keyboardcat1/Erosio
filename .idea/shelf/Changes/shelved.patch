@@ -1,0 +1,71 @@
+Index: src/main/java/com/github/keyboardcat1/erosio/EroderGeometry.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.github.keyboardcat1.erosio;\n\nimport org.kynosarges.tektosyne.geometry.PointD;\nimport org.kynosarges.tektosyne.geometry.RectD;\n\nimport java.util.HashMap;\nimport java.util.Map;\nimport java.util.Set;\n\n/**\n * The geometry underlying a stream graph\n */\npublic abstract class EroderGeometry {\n    /**\n     * The region bounding the erosion\n     */\n    public final RectD bounds;\n    /**\n     * The minimum distance between two nodes, setting the resolution\n     */\n    public final double minDistance;\n    /**\n     * The base graph defining if water flows between nodes by setting neighbors\n     */\n    public final Map<PointD, Set<PointD>> graph = new HashMap<>();\n    /**\n     * The mapping from every node to the surface area of the region closest to it\n     */\n    protected final Map<PointD, Double> areaMap = new HashMap<>();\n\n    /**\n     * The geometry underlying a stream graph\n     *\n     * @param bounds      The region bounding the erosion\n     * @param minDistance The minimum distance between two nodes, setting the resolution\n     */\n    public EroderGeometry(RectD bounds, double minDistance) {\n        this.bounds = bounds;\n        this.minDistance = minDistance;\n    }\n\n    /**\n     * The number of nodes in the graph\n     *\n     * @return The number of nodes in the graph\n     */\n    public int nodeCount() {\n        return graph.size();\n    }\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/github/keyboardcat1/erosio/EroderGeometry.java b/src/main/java/com/github/keyboardcat1/erosio/EroderGeometry.java
+--- a/src/main/java/com/github/keyboardcat1/erosio/EroderGeometry.java	(revision 77b96d0ee0699c7ea9e2a0768853bca65ba90d4a)
++++ b/src/main/java/com/github/keyboardcat1/erosio/EroderGeometry.java	(date 1729367357180)
+@@ -5,6 +5,7 @@
+ 
+ import java.util.HashMap;
+ import java.util.Map;
++import java.util.Objects;
+ import java.util.Set;
+ 
+ /**
+@@ -22,11 +23,7 @@
+     /**
+      * The base graph defining if water flows between nodes by setting neighbors
+      */
+-    public final Map<PointD, Set<PointD>> graph = new HashMap<>();
+-    /**
+-     * The mapping from every node to the surface area of the region closest to it
+-     */
+-    protected final Map<PointD, Double> areaMap = new HashMap<>();
++    public final Map<GraphNode, Set<GraphNode>> graph = new HashMap<>();
+ 
+     /**
+      * The geometry underlying a stream graph
+@@ -48,4 +45,39 @@
+         return graph.size();
+     }
+ 
++    public class GraphNode {
++        public final PointD point;
++        public final double area;
++
++        private double height = 0;
++
++        public GraphNode(PointD point) {
++            this(point, 0);
++        }
++        public GraphNode(PointD point, double area) {
++            this.point = point;
++            this.area = area;
++        }
++
++        public double getHeight() {
++            return height;
++        }
++        double setHeight(double height) {
++            this.height = height;
++            return height;
++        }
++
++        @Override
++        public boolean equals(Object o) {
++            if (this == o) return true;
++            if (o == null || getClass() != o.getClass()) return false;
++            GraphNode graphNode = (GraphNode) o;
++            return Objects.equals(point, graphNode.point);
++        }
++
++        @Override
++        public int hashCode() {
++            return Objects.hashCode(point);
++        }
++    }
+ }

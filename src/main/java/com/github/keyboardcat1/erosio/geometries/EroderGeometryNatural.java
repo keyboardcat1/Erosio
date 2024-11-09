@@ -28,24 +28,12 @@ public class EroderGeometryNatural extends EroderGeometry {
     /**
      * A natural-looking geometry based on Poisson disk sampling and Delaunay triangulation
      *
-     * @param bounds               The bounding coordinates of a rectangular region
-     * @param inverseSampleDensity The minimum distance between two nodes in the stream graph
-     * @param seed                 A seed randomizing the sample points
-     */
-    public EroderGeometryNatural(RectD bounds, double inverseSampleDensity, long seed) {
-        this(new PointD[]{
-                bounds.min, bounds.min.add(new PointD(bounds.width(), 0)),
-                bounds.max, bounds.max.subtract(new PointD(bounds.width(), 0)),
-        }, inverseSampleDensity, seed);
-    }
-
-    /**
      * @param boundingPolygon      The bounding coordinates of a polygonal region
      * @param inverseSampleDensity The minimum distance between two nodes in the stream graph
      * @param seed                 A seed randomizing the sample points
      */
     public EroderGeometryNatural(PointD[] boundingPolygon, double inverseSampleDensity, long seed) {
-        super(RectD.circumscribe(boundingPolygon), inverseSampleDensity);
+        super(boundingPolygon, inverseSampleDensity);
         this.boundingPolygon = boundingPolygon;
         this.inverseSampleDensity = inverseSampleDensity;
         this.seed = seed;

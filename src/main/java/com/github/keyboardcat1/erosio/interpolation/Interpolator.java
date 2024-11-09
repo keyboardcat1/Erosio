@@ -4,6 +4,7 @@ import com.github.keyboardcat1.erosio.EroderResults;
 import org.kynosarges.tektosyne.QuadTree;
 import org.kynosarges.tektosyne.geometry.GeoUtils;
 import org.kynosarges.tektosyne.geometry.PointD;
+import org.kynosarges.tektosyne.geometry.RectD;
 
 import java.util.List;
 import java.util.Map;
@@ -26,7 +27,7 @@ public abstract class Interpolator {
      * @param eroderResults The {@link EroderResults} to interpolate
      */
     public Interpolator(EroderResults eroderResults) {
-        this.quadTree = new QuadTree<>(eroderResults.eroderGeometry.bounds, eroderResults.heightMap);
+        this.quadTree = new QuadTree<>(RectD.circumscribe(eroderResults.eroderGeometry.boundingPolygon), eroderResults.heightMap);
         this.eroderResults = eroderResults;
     }
 
