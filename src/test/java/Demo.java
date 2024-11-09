@@ -18,7 +18,7 @@ public class Demo {
         RectI bounds = new RectI(-256, -256, 256, 256);
         EroderSettings settings = new EroderSettings(
                 p -> 1.0, p -> 0.0,
-                2.0, 0.5,
+                p -> 2.0, 0.5,
                 (p,h) -> 30.0,
                 1, 10, 1E-2
         );
