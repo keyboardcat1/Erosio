@@ -9,8 +9,8 @@ import java.util.function.Function;
  * The input settings for {@link Eroder} <br/>
  * Example geological values, i.e. for scales ~100km:
  * <ul>
- *     <li>uplift: <5.0 10^-4 m/y</li>
- *     <li>initial height: <2.0 10^3 m</li>
+ *     <li>uplift: &#60;5.0 10^-4 m/y</li>
+ *     <li>initial height: &#60;2.0 10^3 m</li>
  *     <li>erosion rate: ~5.61 10^-7 1/y</li>
  *     <li>m:n ratio: ~0.50</li>
  *     <li>maximum slope: 30-60 degrees</li>

@@ -12,7 +12,13 @@ import java.util.Set;
 public class InterpolatorGaussianKernel extends Interpolator {
     private static final double SQRT2PI = Math.sqrt(2*Math.PI);
 
+    /**
+     * The inverse standard deviation of each point's gaussian function
+     */
     public final double stddevInverseCoefficient;
+    /**
+     * The error below which we do not consider any extra sample points (small)
+     */
     public final double normalizedError;
 
     private final double d_epsilon;
@@ -20,8 +26,8 @@ public class InterpolatorGaussianKernel extends Interpolator {
     /**
      * A class interpolating with gaussian kernels
      *
-     * @param stddevInverseCoefficient gaussian distribution inverse standard deviation
-     * @param normalizedError error margin proportion (small)
+     * @param stddevInverseCoefficient The inverse standard deviation of each point's gaussian function
+     * @param normalizedError The error below which we do not consider any extra sample points (small)
      * @param eroderResults The {@link EroderResults} to interpolate
      */
     public InterpolatorGaussianKernel(EroderResults eroderResults, double stddevInverseCoefficient, double normalizedError) {
