@@ -30,7 +30,7 @@ EroderSettings settings = new EroderSettings(
 
 // Generate geometry input (reusable)
 EroderGeometry eroderGeometry = new EroderGeometryNatural(
-        bounds.toRectD(), /*Inverse sample density*/ 2, /*Seed*/ 2
+        EroderGeometry.RectDtoPolygon(bounds.toRectD()), /*Inverse sample density*/ 2, /*Seed*/ 2
 );
 
 // Erode
@@ -59,7 +59,7 @@ Erosio is available via GitHub Packages. Learn more about it
 #### Gradle
 ```groovy
 dependencies {
-    implementation 'com.github.keyboardcat1:erosio:2.0'
+    implementation 'com.github.keyboardcat1:erosio:2.2'
 }
 ```
 
@@ -68,7 +68,7 @@ dependencies {
 <dependency>
   <groupId>com.github.keyboardcat1</groupId>
   <artifactId>erosio</artifactId>
-  <version>2.0</version>
+  <version>2.2</version>
 </dependency>
 ```
 
