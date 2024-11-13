@@ -169,14 +169,14 @@ public final class Eroder {
 
             double distance;
             double downstreamHeight;
+            double oldHeight = oldHeightMap.get(current);
             if (downstream == PointD.EMPTY) {
                 distance = minDistance;
-                downstreamHeight = 0;
+                downstreamHeight = oldHeight;
             } else {
                 distance = current.subtract(downstream).length();
                 downstreamHeight = out.get(downstream);
             }
-            double oldHeight = oldHeightMap.get(current);
             double uplift = upliftMap.get(current);
             double drainageArea = drainageMap.get(current);
             double m = settings.mnRatio();
