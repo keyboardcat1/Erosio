@@ -31,11 +31,11 @@ public class EroderResults {
      */
     public final EroderGeometry eroderGeometry;
     /**
-     * Whether the erosion converged according to the convergence threshold
+     * The iteration at which the heightmap converged, -1 if it didn't converge
      */
-    public final boolean converged;
+    public final int converged;
 
-    EroderResults(Map<PointD, Double> heightMap, Set<EroderEdge> eroderEdges, EroderGeometry eroderGeometry, boolean converged) {
+    EroderResults(Map<PointD, Double> heightMap, Set<EroderEdge> eroderEdges, EroderGeometry eroderGeometry, int converged) {
         this.heightMap = heightMap;
         this.eroderEdges = eroderEdges;
         this.eroderGeometry = eroderGeometry;

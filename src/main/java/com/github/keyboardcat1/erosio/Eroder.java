@@ -40,7 +40,8 @@ public final class Eroder {
         boolean converged = false;
         StreamGraph streamGraph = null;
         Map<PointD, java.lang.Double> drainageMap = null;
-        for (int i = 0; i < settings.maxIterations() && !converged; i++) {
+        int i=0;
+        for (i = 0; i < settings.maxIterations() && !converged; i++) {
             streamGraph = buildInitialStreamGraph(eroderGeometry.graph, heightMap);
             Set<PointD> drains = new HashSet<>(streamGraph.roots);
             drains.retainAll(potentialDrains);
@@ -57,7 +58,7 @@ public final class Eroder {
         }
 
         assert streamGraph != null;
-        return new EroderResults(heightMap, getEroderEdges(streamGraph, drainageMap), eroderGeometry, converged);
+        return new EroderResults(heightMap, getEroderEdges(streamGraph, drainageMap), eroderGeometry, converged ? i : -1);
     }
 
 
@@ -168,14 +169,14 @@ public final class Eroder {
 
             double distance;
             double downstreamHeight;
+            double oldHeight = oldHeightMap.get(current);
             if (downstream == PointD.EMPTY) {
                 distance = minDistance;
-                downstreamHeight = 0;
+                downstreamHeight = oldHeight;
             } else {
                 distance = current.subtract(downstream).length();
                 downstreamHeight = out.get(downstream);
             }
-            double oldHeight = oldHeightMap.get(current);
             double uplift = upliftMap.get(current);
             double drainageArea = drainageMap.get(current);
             double m = settings.mnRatio();
