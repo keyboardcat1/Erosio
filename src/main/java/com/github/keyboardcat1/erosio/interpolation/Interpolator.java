@@ -8,6 +8,7 @@ import org.kynosarges.tektosyne.geometry.RectD;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -17,9 +18,9 @@ public abstract class Interpolator {
     /**
      * The {@link EroderResults} to interpolate
      */
-    public EroderResults eroderResults;
+    public final EroderResults eroderResults;
 
-    private final QuadTree<Double> quadTree;
+    private QuadTree<Double> quadTree;
 
     /**
      * The base interpolation class
@@ -27,7 +28,6 @@ public abstract class Interpolator {
      * @param eroderResults The {@link EroderResults} to interpolate
      */
     public Interpolator(EroderResults eroderResults) {
-        this.quadTree = new QuadTree<>(RectD.circumscribe(eroderResults.eroderGeometry.boundingPolygon), eroderResults.heightMap);
         this.eroderResults = eroderResults;
     }
 
@@ -60,6 +60,8 @@ public abstract class Interpolator {
      * @return a {@link Map} containing all {@link PointD} lying within the radius
      */
     protected final Set<PointD> getRange(PointD point, double radius) {
+        if (Objects.isNull(this.quadTree))
+            this.quadTree = new QuadTree<>(RectD.circumscribe(eroderResults.eroderGeometry.boundingPolygon), eroderResults.heightMap);
         return quadTree.findRange(point, radius).keySet();
     }
 
