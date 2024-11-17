@@ -16,11 +16,15 @@ public abstract class EroderGeometry {
      */
     public final PointD[] boundingPolygon;
     /**
+     * The rectangle that circumscribes the bounding polygon
+     */
+    public final RectD rectBounds;
+    /**
      * The minimum distance between two nodes, setting the resolution
      */
     public final double minDistance;
     /**
-     * The base graph defining if water flows between nodes by setting neighbors
+     * The base graph defining whether water can flow between nodes
      */
     public final Map<PointD, Set<PointD>> graph = new HashMap<>();
 
@@ -37,6 +41,7 @@ public abstract class EroderGeometry {
      */
     public EroderGeometry(PointD[] boundingPolygon, double minDistance) {
         this.boundingPolygon = boundingPolygon;
+        this.rectBounds = RectD.circumscribe(this.boundingPolygon);
         this.minDistance = minDistance;
     }
 
