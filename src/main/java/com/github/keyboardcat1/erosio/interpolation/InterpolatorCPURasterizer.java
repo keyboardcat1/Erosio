@@ -29,7 +29,7 @@ public class InterpolatorCPURasterizer extends Interpolator {
     public final double alpha;
 
     /**
-     * Interpolation on a grid using triangles
+     * Graphics-based interpolation based on triangle rendering
      *
      * @param eroderResults The {@link EroderResults} to interpolate
      * @param pixelSize     A pixel's dimension in erosion basis on a hypothetical screen

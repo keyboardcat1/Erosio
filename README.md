@@ -47,7 +47,7 @@ double height = interp.interpolate(2.0, 3.0);
     <img src="images/GaussianKernel.png"  alt="GaussianKernel interpolated heightmap" width="30%"/>
     <img src="images/Phong.png"  alt="Phong interpolated heightmap" width="30%"/>
     <br/>
-    <em>Resulting heightmap computed in 10 seconds (left NN, center IDW, right GaussianKernel)</em>
+    <em>Resulting heightmap computed in 10 seconds (left NN, center GaussianKernel, right Phong)</em>
 </p>
 
 ## Usage
@@ -59,7 +59,7 @@ Erosio is available via GitHub Packages. Learn more about it
 #### Gradle
 ```groovy
 dependencies {
-    implementation 'com.github.keyboardcat1:erosio:2.2.1'
+    implementation 'com.github.keyboardcat1:erosio:2.2.2'
 }
 ```
 
@@ -68,7 +68,7 @@ dependencies {
 <dependency>
   <groupId>com.github.keyboardcat1</groupId>
   <artifactId>erosio</artifactId>
-  <version>2.2.1</version>
+  <version>2.2.2</version>
 </dependency>
 ```
 
