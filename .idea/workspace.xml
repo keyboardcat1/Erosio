@@ -4,14 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="77f92e6d-4ecb-422a-b86f-6c78dec6ec47" name="Changes" comment="Corrected kriging doc">
+    <list default="true" id="77f92e6d-4ecb-422a-b86f-6c78dec6ec47" name="Changes" comment="Implemented a linear rasterizer/interpolator">
+      <change afterPath="$PROJECT_DIR$/src/test/java/Demo_geo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/Eroder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/Eroder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/geometries/EroderGeometryNatural.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/geometries/EroderGeometryNatural.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/Demo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Demo.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,6 +109,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
@@ -124,9 +123,15 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;Application.Demo_geo.executor&quot;: &quot;Run with VisualVM&quot;,
+    &quot;Application.com.github.keyboardcat1.erosio.Demo_geo.executor&quot;: &quot;Run with VisualVM&quot;,
+    &quot;Gradle.Build Erosio.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.Erosio [:Demo.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Erosio [:Demo1.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Erosio [:Demo_geo.main()].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.Erosio [:com.github.keyboardcat1.erosio.Demo.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Erosio [:com.github.keyboardcat1.erosio.Demo_geo.main()].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.Erosio [:com.github.keyboardcat1.erosio.rendering.Renderer.main()].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.Erosio [init].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.Erosio [javadoc].executor&quot;: &quot;Run&quot;,
@@ -135,28 +140,43 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/keyboardcat/Documents/vkrtf&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/keyboardcat/Documents/Erosio&quot;,
     &quot;onboarding.tips.debug.path&quot;: &quot;/home/keyboardcat/Documents/rivers2/src/main/java/org/example/Main.java&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
   }
 }</component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/images" />
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.github.keyboardcat1.erosio.interpolation" />
+      <recent name="" />
+      <recent name="com.github.keyboardcat1.erosio" />
       <recent name="org.example" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.com.github.keyboardcat1.erosio.Demo">
-    <configuration name="Demo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Demo" />
+  <component name="RunManager" selected="Application.Demo_geo">
+    <configuration name="Demo1" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Demo1" />
+      <module name="erosio.test" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Demo_geo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Demo_geo" />
       <module name="erosio.test" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -175,20 +195,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="com.github.keyboardcat1.erosio.Demo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.github.keyboardcat1.erosio.Demo" />
-      <module name="erosio.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.github.keyboardcat1.erosio.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Erosio [init]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="Erosio [javadocJar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -199,7 +206,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value="init" />
+            <option value="javadocJar" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -234,11 +241,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.com.github.keyboardcat1.erosio.Demo" />
-        <item itemvalue="Application.Renderer" />
+        <item itemvalue="Application.Demo1" />
+        <item itemvalue="Application.Demo_geo" />
+        <item itemvalue="Gradle.Erosio [javadocJar]" />
         <item itemvalue="Gradle.Erosio [javadoc]" />
-        <item itemvalue="Application.Demo" />
-        <item itemvalue="Gradle.Erosio [init]" />
+        <item itemvalue="Application.Renderer" />
       </list>
     </recent_temporary>
   </component>
@@ -363,7 +370,31 @@
       <option name="project" value="LOCAL" />
       <updated>1702755492299</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Major bug fix with border height">
+      <option name="closed" value="true" />
+      <created>1731528657287</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1731528657287</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Set version to 2.2.1">
+      <option name="closed" value="true" />
+      <created>1731602952461</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1731602952461</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Implemented a linear rasterizer/interpolator">
+      <option name="closed" value="true" />
+      <created>1731780071093</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1731780071093</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -386,6 +417,11 @@
               <RecentGroup>
                 <option name="FILTER_VALUES">
                   <option value="main" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="dev" />
                 </option>
               </RecentGroup>
             </list>
@@ -436,7 +472,10 @@
     <MESSAGE value="Added grid geometry&#10;&#10;Modified EroderEdge to include destination volume" />
     <MESSAGE value="Updated version to 2.0" />
     <MESSAGE value="Corrected kriging doc" />
-    <option name="LAST_COMMIT_MESSAGE" value="Corrected kriging doc" />
+    <MESSAGE value="Major bug fix with border height" />
+    <MESSAGE value="Set version to 2.2.1" />
+    <MESSAGE value="Implemented a linear rasterizer/interpolator" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implemented a linear rasterizer/interpolator" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

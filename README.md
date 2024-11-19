@@ -44,8 +44,8 @@ double height = interp.interpolate(2.0, 3.0);
 
 <p align="center">
     <img src="images/NN.png"  alt="NN interpolated heightmap" width="30%"/>
-    <img src="images/IDW.png"  alt="IDW interpolated heightmap" width="30%"/>
-<img src="images/GaussianKernel.png"  alt="GaussianKernel interpolated heightmap" width="30%"/>
+    <img src="images/GaussianKernel.png"  alt="GaussianKernel interpolated heightmap" width="30%"/>
+    <img src="images/Phong.png"  alt="Phong interpolated heightmap" width="30%"/>
     <br/>
     <em>Resulting heightmap computed in 10 seconds (left NN, center IDW, right GaussianKernel)</em>
 </p>
