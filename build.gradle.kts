@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "com.github.keyboardcat1"
-version = "2.2.1"
+version = "2.2.2"
 
 java {
     withSourcesJar()

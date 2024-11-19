@@ -40,7 +40,7 @@ public final class Eroder {
         boolean converged = false;
         StreamGraph streamGraph = null;
         Map<PointD, java.lang.Double> drainageMap = null;
-        int i=0;
+        int i;
         for (i = 0; i < settings.maxIterations() && !converged; i++) {
             streamGraph = buildInitialStreamGraph(eroderGeometry.graph, heightMap);
             Set<PointD> drains = new HashSet<>(streamGraph.roots);

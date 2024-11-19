@@ -26,14 +26,15 @@ public class Demo {
         EroderResults results = Eroder.erode(settings, eroderGeometry);
 
         Interpolator interpolator = new InterpolatorGaussianKernel(results, 2.5, 1E-6);
-        // Interpolator interpolator = new InterpolatorIDW(results, 2, 50);
+        // Interpolator interpolator = new InterpolatorIDW(results, 2.5, 10);
         // Interpolator interpolator = new InterpolatorNN(results);
         // Interpolator interpolator = new InterpolatorKriging(results, InterpolatorKriging.Model.EXPONENTIAL, 1, 10, 10, 1);
+        // Interpolator interpolator = new InterpolatorCPURasterizer(results, 1, 1); // interpolate with try-catch block! (see Demo_geo)
 
         BufferedImage image = new BufferedImage((int) bounds.width(), (int) bounds.height(), BufferedImage.TYPE_INT_RGB);
         for (int x = bounds.min.x; x < bounds.max.x; x++) for (int y = bounds.min.y; y < bounds.max.y; y++) {
-            double value = interpolator.interpolate(x, y);
-            int intensity = (int) (255 * value / results.maxHeight);
+            double value = interpolator.interpolate(x, y)  - results.minHeight;
+            int intensity = (int) (255 * value / (results.maxHeight - results.minHeight));
             image.setRGB(x - bounds.min.x, y - bounds.min.y, new Color(intensity, intensity, intensity).getRGB());
         }
 
