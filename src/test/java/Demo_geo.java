@@ -19,7 +19,7 @@ public class Demo_geo {
         EroderSettings settings = new EroderSettings(
                 p -> 0.2e-4*Math.sin(p.x/256e2)*Math.sin(p.y/512e2)+0.2e-4, p->0D,
                 p -> 5.61e-7, 0.50,
-                ((pointD, aDouble) -> 30.0),
+                (p,h) -> 30.0,
                 2.5e5, 50, 0
         );
         EroderGeometry eroderGeometry = new EroderGeometryNatural(EroderGeometry.RectDtoPolygon(bounds), .5e3, 2);
