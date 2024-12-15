@@ -4,9 +4,9 @@ import com.github.keyboardcat1.erosio.EroderResults;
 import org.kynosarges.tektosyne.geometry.PointD;
 
 /**
- * A class interpolating with Inverse Distance Weighting
+ * Interpolation with Inverse Distance Weighting
  */
-public class InterpolatorIDW extends Interpolator {
+public class InterpolatorIDW extends SpontaneousInterpolator {
     /**
      * The exponent in the IDW weight
      */
@@ -17,7 +17,7 @@ public class InterpolatorIDW extends Interpolator {
     public final double radius;
 
     /**
-     * A class interpolating with Inverse Distance Weighting
+     * Interpolation with Inverse Distance Weighting
      *
      * @param eroderResults The {@link EroderResults} to interpolate
      * @param exponent      The exponent in the IDW weight

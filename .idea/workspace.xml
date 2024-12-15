@@ -4,10 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="77f92e6d-4ecb-422a-b86f-6c78dec6ec47" name="Changes" comment="Implemented a linear rasterizer/interpolator">
-      <change afterPath="$PROJECT_DIR$/src/test/java/Demo_geo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="77f92e6d-4ecb-422a-b86f-6c78dec6ec47" name="Changes" comment="Updated version to 2.2.2">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/interpolation/InterpolatorCPURasterizerRandomAccess.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/interpolation/SpontaneousInterpolator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/interpolation/Vec3.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/interpolation/Interpolator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/interpolation/Interpolator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/interpolation/InterpolatorCPURasterizer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/interpolation/InterpolatorCPURasterizer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/interpolation/InterpolatorGaussianKernel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/interpolation/InterpolatorGaussianKernel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/interpolation/InterpolatorIDW.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/interpolation/InterpolatorIDW.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/interpolation/InterpolatorKriging.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/interpolation/InterpolatorKriging.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/interpolation/InterpolatorNN.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/interpolation/InterpolatorNN.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/Demo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Demo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/Demo_geo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Demo_geo.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -139,6 +149,7 @@
     &quot;Gradle.rivers2 [javadocJar].executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
@@ -161,15 +172,15 @@
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.github.keyboardcat1.erosio" />
       <recent name="com.github.keyboardcat1.erosio.interpolation" />
       <recent name="" />
-      <recent name="com.github.keyboardcat1.erosio" />
       <recent name="org.example" />
     </key>
   </component>
   <component name="RunManager" selected="Application.Demo_geo">
-    <configuration name="Demo1" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Demo1" />
+    <configuration name="Demo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Demo" />
       <module name="erosio.test" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -182,12 +193,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Renderer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.github.keyboardcat1.erosio.rendering.Renderer" />
+    <configuration name="com.github.keyboardcat1.erosio.Demo_geo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.github.keyboardcat1.erosio.Demo_geo" />
       <module name="erosio.main" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.github.keyboardcat1.erosio.rendering.*" />
+          <option name="PATTERN" value="com.github.keyboardcat1.erosio.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -241,11 +252,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Demo1" />
-        <item itemvalue="Application.Demo_geo" />
-        <item itemvalue="Gradle.Erosio [javadocJar]" />
         <item itemvalue="Gradle.Erosio [javadoc]" />
-        <item itemvalue="Application.Renderer" />
+        <item itemvalue="Application.com.github.keyboardcat1.erosio.Demo_geo" />
+        <item itemvalue="Application.Demo_geo" />
+        <item itemvalue="Application.Demo" />
+        <item itemvalue="Gradle.Erosio [javadocJar]" />
       </list>
     </recent_temporary>
   </component>
@@ -394,7 +405,23 @@
       <option name="project" value="LOCAL" />
       <updated>1731780071093</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Updated Demo and added Demo_geo&#10;Updated images">
+      <option name="closed" value="true" />
+      <created>1732048955459</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1732048955459</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Updated version to 2.2.2">
+      <option name="closed" value="true" />
+      <created>1732049281550</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1732049281550</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -475,7 +502,9 @@
     <MESSAGE value="Major bug fix with border height" />
     <MESSAGE value="Set version to 2.2.1" />
     <MESSAGE value="Implemented a linear rasterizer/interpolator" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implemented a linear rasterizer/interpolator" />
+    <MESSAGE value="Updated Demo and added Demo_geo&#10;Updated images" />
+    <MESSAGE value="Updated version to 2.2.2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated version to 2.2.2" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

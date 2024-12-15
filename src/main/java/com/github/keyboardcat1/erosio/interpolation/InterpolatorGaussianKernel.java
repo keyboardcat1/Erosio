@@ -7,9 +7,9 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * A class interpolating with gaussian kernels
+ * Interpolation with gaussian kernels
  */
-public class InterpolatorGaussianKernel extends Interpolator {
+public class InterpolatorGaussianKernel extends SpontaneousInterpolator {
     private static final double SQRT2PI = Math.sqrt(2*Math.PI);
 
     /**
@@ -24,7 +24,7 @@ public class InterpolatorGaussianKernel extends Interpolator {
     private final double d_epsilon;
 
     /**
-     * A class interpolating with gaussian kernels
+     * Interpolation with gaussian kernels
      *
      * @param stddevInverseCoefficient The inverse standard deviation of each point's gaussian function
      * @param normalizedError The error below which we do not consider any extra sample points (small)
