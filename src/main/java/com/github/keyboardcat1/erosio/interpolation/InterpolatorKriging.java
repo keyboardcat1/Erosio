@@ -8,9 +8,9 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * A class interpolating with Kriging interpolation
+ * Interpolation with Kriging interpolation
  */
-public class InterpolatorKriging extends Interpolator {
+public class InterpolatorKriging extends SpontaneousInterpolator{
     /**
      * The variogram {@link Model} used to calculate variances
      */
@@ -34,7 +34,7 @@ public class InterpolatorKriging extends Interpolator {
 
 
     /**
-     * A class interpolating with Kriging interpolation
+     * Interpolation with Kriging interpolation
      *
      * @param eroderResults The {@link EroderResults} to interpolate
      * @param model         The variogram {@link Model} used to calculate variances

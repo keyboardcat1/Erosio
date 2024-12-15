@@ -4,12 +4,12 @@ import com.github.keyboardcat1.erosio.EroderResults;
 import org.kynosarges.tektosyne.geometry.PointD;
 
 /**
- * A class interpolating by nearest neighbor
+ * Interpolation by nearest neighbor
  */
-public class InterpolatorNN extends Interpolator {
+public class InterpolatorNN extends SpontaneousInterpolator {
 
     /**
-     * A class interpolating by nearest neighbor
+     * Interpolation by nearest neighbor
      *
      * @param eroderResults The {@link EroderResults} to interpolate
      */

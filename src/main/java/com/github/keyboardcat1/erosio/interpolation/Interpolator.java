@@ -1,26 +1,12 @@
 package com.github.keyboardcat1.erosio.interpolation;
 
 import com.github.keyboardcat1.erosio.EroderResults;
-import org.kynosarges.tektosyne.QuadTree;
-import org.kynosarges.tektosyne.geometry.GeoUtils;
 import org.kynosarges.tektosyne.geometry.PointD;
-import org.kynosarges.tektosyne.geometry.RectD;
-
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
 
 /**
  * The base interpolation class
  */
 public abstract class Interpolator {
-    /**
-     * The {@link EroderResults} to interpolate
-     */
-    public final EroderResults eroderResults;
-
-    private QuadTree<Double> quadTree;
 
     /**
      * The base interpolation class
@@ -28,7 +14,6 @@ public abstract class Interpolator {
      * @param eroderResults The {@link EroderResults} to interpolate
      */
     public Interpolator(EroderResults eroderResults) {
-        this.eroderResults = eroderResults;
     }
 
     /**
@@ -49,30 +34,4 @@ public abstract class Interpolator {
      * @return The interpolated height at the point
      */
     public abstract double interpolate(PointD point);
-
-
-
-    /**
-     * Finds all sample points lying within a radius
-     *
-     * @param point  a {@link PointD} indicating the center of the search radius
-     * @param radius the radius to search
-     * @return a {@link Map} containing all {@link PointD} lying within the radius
-     */
-    protected final Set<PointD> getRange(PointD point, double radius) {
-        if (Objects.isNull(this.quadTree))
-            this.quadTree = new QuadTree<>(RectD.circumscribe(eroderResults.eroderGeometry.boundingPolygon), eroderResults.heightMap);
-        return quadTree.findRange(point, radius).keySet();
-    }
-
-    /**
-     *  Finds closest sample point to a given point
-     *
-     * @param point a {@link PointD} indicating the center of the search radius
-     * @return the closest sample point to the given point
-     */
-    protected final PointD getClosest(PointD point) {
-        List<PointD> neighbors = getRange(point, eroderResults.eroderGeometry.minDistance*1.5).stream().toList();
-        return neighbors.get(GeoUtils.nearestPoint(neighbors, point));
-    }
 }
