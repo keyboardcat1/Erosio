@@ -59,7 +59,7 @@ Erosio is available via GitHub Packages. Learn more about it
 #### Gradle
 ```groovy
 dependencies {
-    implementation 'com.github.keyboardcat1:erosio:2.2.4'
+    implementation 'com.github.keyboardcat1:erosio:2.2.5'
 }
 ```
 
@@ -68,7 +68,7 @@ dependencies {
 <dependency>
   <groupId>com.github.keyboardcat1</groupId>
   <artifactId>erosio</artifactId>
-  <version>2.2.4</version>
+  <version>2.2.5</version>
 </dependency>
 ```
 
