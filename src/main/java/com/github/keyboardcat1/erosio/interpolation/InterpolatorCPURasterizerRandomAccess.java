@@ -149,7 +149,7 @@ public class InterpolatorCPURasterizerRandomAccess extends Interpolator {
 
     @Override
     public double interpolate(PointD point) {
-        double x = point.x+50, y = point.y+50;
+        double x = point.x, y = point.y;
         List<Triangle> cell = this.cellMap.getCell((int)Math.floor(x), (int)Math.floor(y));
         if (cell.isEmpty()) throw new IndexOutOfBoundsException(point + " does not lie within the convex hull");
         return sample(x, y, cell);

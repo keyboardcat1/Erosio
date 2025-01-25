@@ -17,7 +17,7 @@ import java.util.function.Function;
  *     <li>time step: 2.5 10^5 y</li>
  * </ul>
  *
- * @param upliftLambda          A 2D map returning the uplift at a point
+ * @param upliftLambda          A 2D map returning the uplift at a point at a certain time step t
  * @param initialHeightLambda   A 2D map returning the initial height at a point
  * @param erosionRateLambda     A 2D map returning the erosion rate at a point, generally varying with climate
  * @param mnRatio               A value between 0 and 1 controlling the nature of the erosion (see stream power equation)
@@ -26,7 +26,7 @@ import java.util.function.Function;
  * @param maxIterations         The maximum number of erosion cycles
  * @param convergenceThreshold  The maximum height difference between two erosion cycles dictating when they should cease
  */
-public record EroderSettings(Function<PointD, Double> upliftLambda, Function<PointD, Double> initialHeightLambda,
+public record EroderSettings(BiFunction<PointD, Integer, Double> upliftLambda, Function<PointD, Double> initialHeightLambda,
                              Function<PointD, Double> erosionRateLambda, double mnRatio,
                              BiFunction<PointD, Double, Double> maxSlopeDegreesLambda,
                              double timeStep, int maxIterations, double convergenceThreshold) {

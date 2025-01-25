@@ -22,7 +22,7 @@ Erosio's features include:
 RectI bounds = new RectI(-256, -256, 256, 256);
 
 EroderSettings settings = new EroderSettings(
-        /*Uplift*/ p -> 1.0, /*Initial height*/ p -> 0.0,
+        /*Uplift*/ (p,t) -> 1.0, /*Initial height*/ p -> 0.0,
         /*Erosion rate*/ p -> 2.0, /*m:n ratio*/ 0.5,
         /*Max slope*/ (p, h) -> 30.0,
         /*Time step*/ 1, /*Max iterations*/ 10, /*Convergence threshold*/ 1E-2
@@ -59,7 +59,7 @@ Erosio is available via GitHub Packages. Learn more about it
 #### Gradle
 ```groovy
 dependencies {
-    implementation 'com.github.keyboardcat1:erosio:2.2.4'
+    implementation 'com.github.keyboardcat1:erosio:2.2.5'
 }
 ```
 
@@ -68,7 +68,7 @@ dependencies {
 <dependency>
   <groupId>com.github.keyboardcat1</groupId>
   <artifactId>erosio</artifactId>
-  <version>2.2.4</version>
+  <version>2.2.5</version>
 </dependency>
 ```
 

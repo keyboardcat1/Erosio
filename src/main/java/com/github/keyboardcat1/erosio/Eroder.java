@@ -25,11 +25,9 @@ public final class Eroder {
      */
     public static EroderResults erode(EroderSettings settings, EroderGeometry eroderGeometry) {
         Map<PointD, Double> heightMap = new HashMap<>(eroderGeometry.graph.size());
-        Map<PointD, Double> upliftMap = new HashMap<>(eroderGeometry.graph.size());
         Map<PointD, Double> erosionRateMap = new HashMap<>(eroderGeometry.graph.size());
         for (PointD point : eroderGeometry.graph.keySet()) {
             heightMap.put(point, settings.initialHeightLambda().apply(point));
-            upliftMap.put(point, settings.upliftLambda().apply(point));
             erosionRateMap.put(point, settings.erosionRateLambda().apply(point));
         }
 
@@ -47,7 +45,7 @@ public final class Eroder {
             drains.retainAll(potentialDrains);
             delakefyStreamGraph(streamGraph, eroderGeometry.graph, heightMap, drains);
             drainageMap = getDrainageMap(streamGraph, eroderGeometry.areaMap);
-            Map<PointD, Double> newHeightMap = computeNewHeightMap(heightMap, upliftMap, drainageMap, erosionRateMap, streamGraph, settings, eroderGeometry.minDistance);
+            Map<PointD, Double> newHeightMap = computeNewHeightMap(i, heightMap, drainageMap, erosionRateMap, streamGraph, settings, eroderGeometry.minDistance);
             converged = true;
             for (PointD point : newHeightMap.keySet())
                 if (Math.abs(newHeightMap.get(point) - heightMap.get(point)) > settings.convergenceThreshold()) {
@@ -154,7 +152,7 @@ public final class Eroder {
         return currentArea;
     }
 
-    private static Map<PointD, Double> computeNewHeightMap(Map<PointD, Double> oldHeightMap, Map<PointD, Double> upliftMap,
+    private static Map<PointD, Double> computeNewHeightMap(int t, Map<PointD, Double> oldHeightMap,
                                                            Map<PointD, Double> drainageMap, Map<PointD, Double> erosionRateMap,
                                                            StreamGraph streamGraph, EroderSettings settings, double minDistance) {
         final Map<PointD, Double> out = new HashMap<>(streamGraph.size());
@@ -177,7 +175,7 @@ public final class Eroder {
                 distance = current.subtract(downstream).length();
                 downstreamHeight = out.get(downstream);
             }
-            double uplift = upliftMap.get(current);
+            double uplift =settings.upliftLambda().apply(current, t);
             double drainageArea = drainageMap.get(current);
             double m = settings.mnRatio();
             double k = erosionRateMap.get(current);
