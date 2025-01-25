@@ -17,7 +17,7 @@ public class Demo {
     public static void main(String[] args) throws IOException {
         RectI bounds = new RectI(-256, -256, 256, 256);
         EroderSettings settings = new EroderSettings(
-                p -> 1.0, p -> 0.0,
+                (p,t) -> 1.0, p -> 0.0,
                 p -> 2.0, 0.5,
                 (p,h) -> 30.0,
                 1, 10, 1E-2

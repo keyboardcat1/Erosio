@@ -4,20 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="77f92e6d-4ecb-422a-b86f-6c78dec6ec47" name="Changes" comment="Updated version to 2.2.2">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/interpolation/InterpolatorCPURasterizerRandomAccess.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/interpolation/SpontaneousInterpolator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/interpolation/Vec3.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/interpolation/Interpolator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/interpolation/Interpolator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/interpolation/InterpolatorCPURasterizer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/interpolation/InterpolatorCPURasterizer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/interpolation/InterpolatorGaussianKernel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/interpolation/InterpolatorGaussianKernel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/interpolation/InterpolatorIDW.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/interpolation/InterpolatorIDW.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/interpolation/InterpolatorKriging.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/interpolation/InterpolatorKriging.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/interpolation/InterpolatorNN.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/keyboardcat1/erosio/interpolation/InterpolatorNN.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/Demo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Demo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/Demo_geo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Demo_geo.java" afterDir="false" />
+    <list default="true" id="77f92e6d-4ecb-422a-b86f-6c78dec6ec47" name="Changes" comment="Updated version to 2.2.4">
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,6 +103,9 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.kynosarges/tektosyne/6.2.0/4c513e669ae179106ceeac13bf7d95c562964084/tektosyne-6.2.0-sources.jar!/org/kynosarges/tektosyne/geometry/RectD.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.kynosarges/tektosyne/6.2.0/4c513e669ae179106ceeac13bf7d95c562964084/tektosyne-6.2.0-sources.jar!/org/kynosarges/tektosyne/geometry/VoronoiResults.java" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="KotlinScriptingSettings">
+    <option name="suppressDefinitionsCheck" value="true" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />

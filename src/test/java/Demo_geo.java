@@ -17,7 +17,7 @@ public class Demo_geo {
     public static void main(String[] args) throws IOException {
         RectD bounds = new RectD(-256e2, -256e2, 256e2, 256e2);
         EroderSettings settings = new EroderSettings(
-                p -> 0.2e-4*Math.sin(p.x/256e2)*Math.sin(p.y/512e2)+0.2e-4, p->0D,
+                (p,t) -> 0.2e-4*Math.sin(p.x/256e2)*Math.sin(p.y/512e2)+0.2e-4, p->0D,
                 p -> 5.61e-7, 0.50,
                 (p,h) -> 30.0,
                 2.5e5, 50, 0
